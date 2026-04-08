@@ -1,0 +1,110 @@
+{{ 'naturalplus-trust-bar.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="np-trust-bar"
+  aria-label="{{ 'sections.trust_bar.label' | t: default: 'Vertrauensmerkmale' }}"
+>
+  <div class="page-width">
+    <ul class="np-trust-bar__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.text != blank -%}
+          <li class="np-trust-bar__item" {{ block.shopify_attributes }}>
+
+            {%- comment -%} Icon: Dateiname dynamisch aus dem Schema-Wert zusammensetzen {%- endcomment -%}
+            {%- if block.settings.icon != blank -%}
+              <span class="np-trust-bar__icon" aria-hidden="true">
+                {%- assign icon_file = block.settings.icon | prepend: 'icon-' | append: '.svg' -%}
+                {{ icon_file | inline_asset_content }}
+              </span>
+            {%- endif -%}
+
+            <p class="np-trust-bar__text">{{ block.settings.text | escape }}</p>
+
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "tag": "section",
+  "class": "np-trust-bar-section",
+  "max_blocks": 4,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP-Element",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "truck",       "label": "Lieferwagen (Versand)" },
+            { "value": "return",      "label": "Pfeil zurück (Rückgabe)" },
+            { "value": "stopwatch",   "label": "Stoppuhr (Lieferzeit)" },
+            { "value": "leaf",        "label": "Blatt (Natur / Europa)" },
+            { "value": "check-mark",  "label": "Häkchen (Qualität)" },
+            { "value": "padlock",     "label": "Schloss (Sicherheit)" },
+            { "value": "star",        "label": "Stern (Bewertung)" },
+            { "value": "box",         "label": "Box (Verpackung)" },
+            { "value": "plane",       "label": "Flugzeug (Express)" },
+            { "value": "heart",       "label": "Herz (Gesundheit)" },
+            { "value": "fire",        "label": "Feuer (Energie)" },
+            { "value": "lock",        "label": "Schloss (Vertrauen)" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Unser Vorteil"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "blocks": [
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "text": "Versandkostenfrei ab 40\u20AC"
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "leaf",
+            "text": "Hergestellt in Europa"
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "stopwatch",
+            "text": "Schnelle Lieferung (2\u20134 Tage)"
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "icon": "return",
+            "text": "30 Tage R\u00FCckgabe"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
