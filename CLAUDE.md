@@ -149,6 +149,12 @@ In dieser Reihenfolge bauen:
 
 ---
 
+## Shopify Customizer – Wichtige Hinweise
+
+- **Header Color Scheme:** Im Theme-Customizer unter Header → Color Scheme ein dunkles Schema wählen (`scheme-4`), damit Dawns eigene Icon-SVGs korrekt weiß gerendert werden. Das CSS übernimmt dann den Rest.
+
+---
+
 ## Out of Scope
 
 - Checkout-Seite

@@ -1,0 +1,266 @@
+{{ 'naturalplus-hero-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+
+  assign has_mobile_image = false
+  if section.settings.image_mobile != blank
+    assign has_mobile_image = true
+  endif
+-%}
+
+{%- comment -%} Overlay-Stärke und Hero-Höhe als CSS-Variablen setzen {%- endcomment -%}
+{%- style -%}
+  #HeroBanner-{{ section.id }} {
+    --np-hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+
+  {%- case section.settings.min_height -%}
+    {%- when 'small' -%}
+      #HeroBanner-{{ section.id }} { --np-hero-min-height: 50vh; }
+    {%- when 'medium' -%}
+      #HeroBanner-{{ section.id }} { --np-hero-min-height: 70vh; }
+    {%- when 'large' -%}
+      #HeroBanner-{{ section.id }} { --np-hero-min-height: 90vh; }
+    {%- when 'fullscreen' -%}
+      #HeroBanner-{{ section.id }} { --np-hero-min-height: 100vh; }
+  {%- endcase -%}
+{%- endstyle -%}
+
+<section
+  id="HeroBanner-{{ section.id }}"
+  class="np-hero"
+  aria-label="{{ section.settings.heading | escape }}"
+>
+
+  {%- comment -%} ── Hintergrundbild(er) ── {%- endcomment -%}
+  {%- if has_mobile_image -%}
+    {%- assign mobile_height = section.settings.image_mobile.width | divided_by: section.settings.image_mobile.aspect_ratio -%}
+    {{
+      section.settings.image_mobile
+      | image_url: width: 1100
+      | image_tag:
+        class: 'np-hero__img np-hero__img--mobile',
+        sizes: '100vw',
+        widths: '375, 550, 750, 1100',
+        width: section.settings.image_mobile.width,
+        height: mobile_height,
+        loading: 'eager',
+        fetchpriority: fetch_priority,
+        alt: ''
+    }}
+  {%- endif -%}
+
+  {%- if section.settings.image != blank -%}
+    {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+    {%- if has_mobile_image -%}
+      {%- assign desktop_img_class = 'np-hero__img np-hero__img--desktop-only' -%}
+    {%- else -%}
+      {%- assign desktop_img_class = 'np-hero__img' -%}
+    {%- endif -%}
+    {{
+      section.settings.image
+      | image_url: width: 3840
+      | image_tag:
+        class: desktop_img_class,
+        sizes: '100vw',
+        widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+        width: section.settings.image.width,
+        height: image_height,
+        loading: 'eager',
+        fetchpriority: fetch_priority,
+        alt: ''
+    }}
+  {%- else -%}
+    <div class="np-hero__placeholder" aria-hidden="true">
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ── Dunkler Overlay-Gradient ── {%- endcomment -%}
+  <div class="np-hero__overlay" aria-hidden="true"></div>
+
+  {%- comment -%} ── Inhalt ── {%- endcomment -%}
+  <div class="np-hero__content page-width">
+    <div class="np-hero__text{% if section.settings.content_alignment == 'left' %} np-hero__text--left{% endif %}">
+
+      {%- if section.settings.heading != blank -%}
+        {%- if request.page_type == 'index' -%}
+          <h1 class="np-hero__heading">{{ section.settings.heading | escape }}</h1>
+        {%- else -%}
+          <h2 class="np-hero__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="np-hero__subtext">{{ section.settings.subtext | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+        <div class="np-hero__buttons">
+          {%- if section.settings.button_1_label != blank -%}
+            <a
+              {% if section.settings.button_1_link != blank %}
+                href="{{ section.settings.button_1_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              class="np-btn np-btn--primary"
+            >
+              {{- section.settings.button_1_label | escape -}}
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.button_2_label != blank -%}
+            <a
+              {% if section.settings.button_2_link != blank %}
+                href="{{ section.settings.button_2_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              class="np-btn np-btn--outline"
+            >
+              {{- section.settings.button_2_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "np-hero-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bild"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hintergrundbild (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Hintergrundbild (Mobil, optional)",
+      "info": "Wird auf Bildschirmen unter 750px verwendet. Ideal im Hochformat."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay-Stärke",
+      "info": "Wie dunkel das Bild abgedunkelt wird. Höhere Werte verbessern die Lesbarkeit.",
+      "default": 55
+    },
+    {
+      "type": "select",
+      "id": "min_height",
+      "label": "Hero-Höhe",
+      "options": [
+        {
+          "value": "small",
+          "label": "Klein (50vh)"
+        },
+        {
+          "value": "medium",
+          "label": "Mittel (70vh)"
+        },
+        {
+          "value": "large",
+          "label": "Groß (90vh)"
+        },
+        {
+          "value": "fullscreen",
+          "label": "Vollbild (100vh)"
+        }
+      ],
+      "default": "fullscreen"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Headline",
+      "default": "DEIN BESTES TRAINING BEGINNT HIER",
+      "info": "Wird automatisch in UPPERCASE dargestellt."
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Premium-Supplemente. Fairer Preis. Echter Unterschied."
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Inhalt-Ausrichtung",
+      "options": [
+        {
+          "value": "center",
+          "label": "Zentriert"
+        },
+        {
+          "value": "left",
+          "label": "Linksbündig"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Button 1 (Primär – Rot)"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button-Text",
+      "default": "JETZT ENTDECKEN"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Button 2 (Sekundär – Weiß Outline)"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button-Text",
+      "default": "BESTSELLER"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button-Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}
