@@ -1,0 +1,50 @@
+/* NaturalPlus24 – Announcement Bar
+   Schmale schwarze Leiste oben, rotierender Text, kein Close-Button
+   PRD Abschnitt 6.1 */
+
+/* Schwarzer Hintergrund erzwingen – unabhängig vom gewählten Color Scheme */
+.announcement-bar-section,
+.announcement-bar-section .utility-bar {
+  background-color: var(--np-color-black);
+}
+
+/* Kein Trennstrich unten */
+.announcement-bar-section .utility-bar--bottom-border {
+  border-bottom: none;
+}
+
+/* Text: weiß, Inter, kompakte Größe */
+.announcement-bar-section .announcement-bar__message {
+  font-family: var(--np-font-body);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--np-color-white);
+  padding: 1rem 0;
+  min-height: unset;
+  text-transform: none;
+}
+
+/* Links in der Bar ebenfalls weiß */
+.announcement-bar-section .announcement-bar__link,
+.announcement-bar-section .announcement-bar__link:hover {
+  color: var(--np-color-white);
+}
+
+/* Slider-Pfeile ausblenden – nur Auto-Rotation, kein manuelles Durchklicken */
+.announcement-bar-section .slider-button--prev,
+.announcement-bar-section .slider-button--next {
+  display: none;
+}
+
+/* Volle Breite – Text immer zentriert */
+.announcement-bar-section .utility-bar__grid {
+  justify-items: center;
+}
+
+/* Trennpunkt (·) zwischen Meldungen als dekoratives Element */
+.announcement-bar-section .announcement-bar__message::before {
+  content: '· ';
+  color: var(--np-color-red);
+  margin-right: 0.4rem;
+}
