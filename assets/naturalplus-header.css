@@ -1,0 +1,192 @@
+/* NaturalPlus24 – Header / Navigation
+   Schwarzer Sticky-Header, Logo links, Nav mittig, Icons rechts
+   PRD Abschnitt 6.2 */
+
+/* ── Schwarzer Hintergrund ── */
+.section-header .header-wrapper {
+  background-color: var(--np-color-black);
+  border-bottom: none;
+}
+
+/* Kein Trennstrich unten */
+.section-header .header-wrapper--border-bottom {
+  border-bottom: none;
+}
+
+/* Schatten wenn Header über dem Content schwebt (sticky-Zustand) */
+.shopify-section-header-sticky .header-wrapper {
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
+}
+
+
+/* ── Layout: Logo links – Nav mittig – Icons rechts ── */
+@media screen and (min-width: 990px) {
+  /* Grid-Spalten gleichgewichtig: Logo bekommt 1fr links, Nav auto mittig, Icons 1fr rechts */
+  .section-header .header--middle-left {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  /* Logo innerhalb seines 1fr-Bereichs linksbündig ausrichten */
+  .section-header .header--middle-left .header__heading,
+  .section-header .header--middle-left .header__heading-link {
+    justify-self: start;
+  }
+
+  /* Icons innerhalb ihres 1fr-Bereichs rechtsbündig ausrichten */
+  .section-header .header--middle-left .header__icons {
+    justify-self: end;
+  }
+}
+
+
+/* ── Shop-Name als Text (fallback wenn kein Logo-Bild) ── */
+.section-header .header__heading-link .h2 {
+  color: var(--np-color-white);
+  font-family: var(--np-font-body);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.section-header .header__heading-link:hover .h2 {
+  color: var(--np-color-white);
+}
+
+
+/* ── Desktop Navigation ── */
+.section-header .header__menu-item {
+  font-family: var(--np-font-body);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.section-header .header__menu-item:hover {
+  color: var(--np-color-white);
+}
+
+/* Hover-Unterstrich in Weiß */
+.section-header .header__menu-item:hover span {
+  text-decoration-color: var(--np-color-white);
+}
+
+/* Aktiver Menüpunkt */
+.section-header .header__active-menu-item {
+  color: var(--np-color-white);
+  text-decoration-color: var(--np-color-white);
+}
+
+/* "Sale"-Link hervorheben: roter Text */
+.section-header #HeaderMenu-sale,
+.section-header #HeaderMenu-sale span,
+.section-header a.header__menu-item[href*="sale"] span {
+  color: var(--np-color-red);
+}
+
+.section-header #HeaderMenu-sale:hover,
+.section-header #HeaderMenu-sale:hover span {
+  color: var(--np-color-red-dark);
+}
+
+/* Dropdown-Untermenü: dunkler Hintergrund */
+.section-header .header__submenu {
+  background-color: var(--np-color-dark);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
+}
+
+.section-header .header__submenu .header__menu-item {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.section-header .header__submenu .header__menu-item:hover {
+  color: var(--np-color-white);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+
+/* ── Header-Icons (Suche, Account, Warenkorb) ── */
+.section-header .header__icon {
+  color: var(--np-color-white);
+}
+
+/* SVG-Strokes über currentColor weiß färben */
+.section-header .header__icon .icon {
+  color: var(--np-color-white);
+}
+
+/* Hover-Effekt dezent */
+.section-header .header__icon:hover .icon {
+  opacity: 0.75;
+  transform: scale(1.07);
+}
+
+
+/* ── Warenkorb-Zähler: Rot (#D2090E) ── */
+.section-header .cart-count-bubble {
+  background-color: var(--np-color-red);
+  color: var(--np-color-white);
+}
+
+
+/* ── Mobil: Hamburger-Button ── */
+.section-header .header__icon--menu {
+  color: var(--np-color-white);
+}
+
+/* Overlay hinter dem offenen Drawer */
+.section-header .header__icon--menu[aria-expanded='true']::before {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+
+/* ── Mobile Drawer ── */
+/* Schwarzer Hintergrund für den Drawer */
+.menu-drawer {
+  background-color: var(--np-color-dark) !important;
+}
+
+/* Drawer-Menüpunkte */
+.menu-drawer__menu-item {
+  font-family: var(--np-font-body);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--np-color-white);
+}
+
+.menu-drawer__menu-item:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Trennlinien im Drawer */
+.menu-drawer__menu > li + li {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Account-Link im Drawer */
+.menu-drawer__account {
+  color: var(--np-color-white);
+  font-family: var(--np-font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Zurück-Button im Unter-Drawer */
+.menu-drawer__close-button {
+  color: var(--np-color-white);
+}
+
+/* Utility-Bereich unten im Drawer */
+.menu-drawer__utility-links {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Social-Icons im Drawer weiß */
+.menu-drawer .list-social__link {
+  color: var(--np-color-white);
+}
