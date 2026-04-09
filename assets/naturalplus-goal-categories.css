@@ -1,0 +1,204 @@
+/* NaturalPlus24 – Ziel-Kategorien
+   3 Kacheln: dunkles Athleten-Bild, Overlay, UPPERCASE Headline, roter CTA
+   PRD Abschnitt 6.5 — Mobile First */
+
+
+/* ── Section-Wrapper ── */
+.np-goal-categories {
+  padding: 4.8rem 0;
+  background-color: var(--np-color-white);
+}
+
+@media screen and (min-width: 990px) {
+  .np-goal-categories {
+    padding: 6.4rem 0;
+  }
+}
+
+
+/* ── Optionale Section-Überschrift ── */
+.np-goal-categories .np-section-heading {
+  font-family: var(--np-font-body);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 3vw + 0.5rem, 3.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--np-color-black);
+  margin: 0 0 3.2rem;
+}
+
+
+/* ── Grid: 1 Spalte (Mobil) → 3 Spalten (Desktop) ── */
+.np-goal-categories__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .np-goal-categories__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+
+/* ── Einzelne Kachel ── */
+.np-goal-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+  /* Mindesthöhe: 250px mobil */
+  min-height: 25rem;
+  background-color: var(--np-color-black);
+}
+
+@media screen and (min-width: 750px) {
+  .np-goal-card {
+    /* Mindesthöhe: 400px Desktop */
+    min-height: 40rem;
+  }
+}
+
+/* Focus-Ring für Accessibility */
+.np-goal-card:focus-visible {
+  outline: 3px solid var(--np-color-red);
+  outline-offset: 3px;
+}
+
+
+/* ── Hintergrundbild ── */
+.np-goal-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  /* Zoom-Ausgangspunkt: leicht größer für nahtlosen Hover */
+  transform: scale(1.03);
+  transition: transform 500ms ease;
+}
+
+/* Hover: Bild zoomen */
+.np-goal-card:hover .np-goal-card__img,
+.np-goal-card:focus-visible .np-goal-card__img {
+  transform: scale(1.1);
+}
+
+/* Platzhalter-SVG wenn kein Bild gesetzt */
+.np-goal-card__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.np-goal-card__placeholder .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ── Dunkler Overlay ── */
+.np-goal-card__overlay {
+  position: absolute;
+  inset: 0;
+  /* Gradient: oben transparent, unten deutlich dunkler für Lesbarkeit */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.55) 60%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  z-index: 1;
+  transition: background 300ms ease;
+}
+
+/* Overlay bei Hover leicht verstärken */
+.np-goal-card:hover .np-goal-card__overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.62) 60%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+}
+
+
+/* ── Inhalt (Headline + Button) ── */
+.np-goal-card__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2.4rem 2rem;
+  text-align: center;
+  gap: 1.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .np-goal-card__content {
+    padding: 3.2rem 2.4rem;
+  }
+}
+
+
+/* ── Headline: Inter 700–800, UPPERCASE, weiß ── */
+.np-goal-card__heading {
+  font-family: var(--np-font-body);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--np-color-white);
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .np-goal-card__heading {
+    font-size: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .np-goal-card__heading {
+    font-size: 2.8rem;
+  }
+}
+
+
+/* ── Roter CTA-Button (klein) ── */
+.np-goal-card__btn {
+  display: inline-block;
+  font-family: var(--np-font-body);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--np-color-white);
+  background-color: var(--np-color-red);
+  border: none;
+  padding: 0.9rem 2rem;
+  transition: background-color 150ms ease;
+  white-space: nowrap;
+  /* Klick-Bereich korrekt – der Link ist das <a> der Kachel,
+     der Button ist nur visuelles Element ohne eigene Interaktion */
+  pointer-events: none;
+}
+
+/* Hover-Farbe über Parent-Hover steuern */
+.np-goal-card:hover .np-goal-card__btn {
+  background-color: var(--np-color-red-dark);
+}

@@ -1,0 +1,146 @@
+{{ 'naturalplus-goal-categories.css' | asset_url | stylesheet_tag }}
+
+<section class="np-goal-categories" aria-label="Ziel-Kategorien">
+  <div class="page-width">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="np-section-heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    <ul class="np-goal-categories__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+
+          {%- comment -%}
+            Jede Kachel ist ein <a>-Link. Das Bild, der Overlay und der
+            visuelle Button-Chip befinden sich alle innerhalb des Links –
+            kein verschachtelter interaktiver Bereich.
+          {%- endcomment -%}
+          <a
+            href="{{ block.settings.link | default: '#' }}"
+            class="np-goal-card"
+            aria-label="{{ block.settings.heading | escape }}"
+          >
+
+            {%- comment -%} Hintergrundbild {%- endcomment -%}
+            {%- if block.settings.image != blank -%}
+              {%- assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+              {{
+                block.settings.image
+                | image_url: width: 1200
+                | image_tag:
+                  class: 'np-goal-card__img',
+                  sizes: '(min-width: 750px) 33vw, 100vw',
+                  widths: '375, 550, 600, 800, 1200',
+                  width: block.settings.image.width,
+                  height: image_height,
+                  loading: 'lazy',
+                  alt: ''
+              }}
+            {%- else -%}
+              <div class="np-goal-card__placeholder" aria-hidden="true">
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Dunkler Overlay {%- endcomment -%}
+            <div class="np-goal-card__overlay" aria-hidden="true"></div>
+
+            {%- comment -%} Inhalt: Headline + Button-Chip {%- endcomment -%}
+            <div class="np-goal-card__content">
+              {%- if block.settings.heading != blank -%}
+                <h3 class="np-goal-card__heading">{{ block.settings.heading | escape }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.button_label != blank -%}
+                <span class="np-goal-card__btn" aria-hidden="true">
+                  {{- block.settings.button_label | escape -}}
+                </span>
+              {%- endif -%}
+            </div>
+
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ziel-Kategorien",
+  "tag": "section",
+  "class": "np-goal-categories-section",
+  "max_blocks": 3,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Abschnitts-Überschrift",
+      "info": "Optional. Leer lassen für keinen Titel."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Ziel-Kategorie",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Athleten-Foto"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Headline (wird UPPERCASE dargestellt)",
+          "default": "MUSKELAUFBAU"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button-Text",
+          "default": "Jetzt entdecken"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (z.B. Collection)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ziel-Kategorien",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "heading": "MUSKELAUFBAU",
+            "button_label": "Jetzt entdecken"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "heading": "ABNEHMEN & DEFINITION",
+            "button_label": "Jetzt entdecken"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "heading": "GESUNDHEIT & VITALIT\u00C4T",
+            "button_label": "Jetzt entdecken"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
