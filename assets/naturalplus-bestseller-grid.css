@@ -1,0 +1,326 @@
+/* NaturalPlus24 – Bestseller-Grid
+   Section-Headline, Filter-Leiste, Produktkarten mit Badge/Sterne/Preis
+   PRD Abschnitt 6.6 — Mobile First */
+
+
+/* ── Section-Wrapper ── */
+.np-bestseller {
+  padding: 4.8rem 0;
+  background-color: var(--np-color-white);
+}
+
+@media screen and (min-width: 990px) {
+  .np-bestseller {
+    padding: 6.4rem 0;
+  }
+}
+
+
+/* ── Section-Headline: UPPERCASE, linksbündig ── */
+.np-bestseller__heading {
+  font-family: var(--np-font-body);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 3vw + 0.5rem, 3.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--np-color-black);
+  margin: 0 0 2.8rem;
+  text-align: left;
+}
+
+
+/* ── Filter-Leiste ── */
+.np-bestseller__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 3.2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.np-filter-btn {
+  font-family: var(--np-font-body);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--np-color-text);
+  background: transparent;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  padding: 0.7rem 1.6rem;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+  line-height: 1;
+}
+
+.np-filter-btn:hover {
+  border-color: var(--np-color-black);
+  color: var(--np-color-black);
+}
+
+.np-filter-btn[aria-pressed="true"] {
+  background-color: var(--np-color-black);
+  border-color: var(--np-color-black);
+  color: var(--np-color-white);
+}
+
+
+/* ── Produkt-Grid: 2 Spalten Mobil → 4 Spalten Desktop ── */
+.np-bestseller__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .np-bestseller__grid {
+    gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .np-bestseller__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem;
+  }
+}
+
+/* Ausgeblendete Produkte (per JS-Filter) */
+.np-product-card--hidden {
+  display: none;
+}
+
+
+/* ── Produktkarte ── */
+.np-product-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--np-color-white);
+  position: relative;
+  transition: box-shadow 200ms ease;
+}
+
+.np-product-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ── Badge ── */
+.np-product-card__badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  font-family: var(--np-font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  line-height: 1;
+}
+
+.np-product-card__badge--bestseller {
+  background-color: var(--np-color-black);
+  color: var(--np-color-white);
+}
+
+.np-product-card__badge--sale {
+  background-color: var(--np-color-red);
+  color: var(--np-color-white);
+}
+
+.np-product-card__badge--new {
+  background-color: var(--np-color-dark);
+  color: var(--np-color-white);
+}
+
+
+/* ── Produktbild ── */
+.np-product-card__img-wrap {
+  position: relative;
+  background-color: var(--np-color-bg-light);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.np-product-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  padding: 1.2rem;
+  transition: transform 350ms ease;
+}
+
+.np-product-card:hover .np-product-card__img {
+  transform: scale(1.04);
+}
+
+.np-product-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.np-product-card__placeholder .placeholder-svg {
+  width: 60%;
+  height: 60%;
+  opacity: 0.3;
+}
+
+
+/* ── Karten-Body ── */
+.np-product-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.2rem 1rem 1.4rem;
+  gap: 0.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .np-product-card__body {
+    padding: 1.4rem 1.2rem 1.6rem;
+  }
+}
+
+
+/* ── Produktname ── */
+.np-product-card__title {
+  font-family: var(--np-font-body);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  color: var(--np-color-black);
+  margin: 0;
+  /* Maximal 2 Zeilen, dann Ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 990px) {
+  .np-product-card__title {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* ── Sternebewertung ── */
+.np-product-card__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.np-stars {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.np-star {
+  width: 1.3rem;
+  height: 1.3rem;
+  flex-shrink: 0;
+}
+
+/* Voller Stern */
+.np-star--full path {
+  fill: #F5A623;
+}
+
+/* Halber Stern */
+.np-star--half path:first-child {
+  fill: #F5A623;
+}
+.np-star--half path:last-child {
+  fill: #D9D9D9;
+}
+
+/* Leerer Stern */
+.np-star--empty path {
+  fill: #D9D9D9;
+}
+
+.np-product-card__rating-count {
+  font-family: var(--np-font-body);
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.45);
+  line-height: 1;
+}
+
+
+/* ── Preis ── */
+.np-product-card__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.np-product-card__price-current {
+  font-family: var(--np-font-body);
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--np-color-black);
+  line-height: 1;
+}
+
+@media screen and (min-width: 990px) {
+  .np-product-card__price-current {
+    font-size: 2rem;
+  }
+}
+
+/* Streichpreis (original, rot durchgestrichen) */
+.np-product-card__price-compare {
+  font-family: var(--np-font-body);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--np-color-red);
+  text-decoration: line-through;
+  line-height: 1;
+}
+
+
+/* ── "In den Warenkorb"-Button ── */
+.np-product-card__atc {
+  display: block;
+  width: 100%;
+  font-family: var(--np-font-body);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  color: var(--np-color-white);
+  background-color: var(--np-color-red);
+  border: none;
+  padding: 1.1rem 1rem;
+  cursor: pointer;
+  margin-top: 1.2rem;
+  transition: background-color 150ms ease;
+  line-height: 1;
+}
+
+.np-product-card__atc:hover {
+  background-color: var(--np-color-red-dark);
+}
+
+@media screen and (min-width: 750px) {
+  .np-product-card__atc {
+    font-size: 1.3rem;
+    padding: 1.2rem 1rem;
+  }
+}

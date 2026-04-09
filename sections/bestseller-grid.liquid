@@ -1,0 +1,348 @@
+{{ 'naturalplus-bestseller-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'naturalplus-bestseller-grid.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Hilfsmakro: gibt SVG für einen Stern zurück (voll / halb / leer).
+  Wird über Liquid-Includes nicht unterstützt, daher direkt im Template.
+{%- endcomment -%}
+
+{%- liquid
+  assign filter_labels = 'Alle,Protein,Creatin,Booster,Vitamine' | split: ','
+  assign filter_values = 'all,protein,creatin,booster,vitamine' | split: ','
+-%}
+
+<section class="np-bestseller np-bestseller-section" id="BestsellerGrid-{{ section.id }}">
+  <div class="page-width">
+
+    {%- comment -%} Section-Headline {%- endcomment -%}
+    <h2 class="np-bestseller__heading">
+      {{- section.settings.heading | default: 'UNSERE BESTSELLER' | escape -}}
+    </h2>
+
+    {%- comment -%} Filter-Leiste {%- endcomment -%}
+    <ul class="np-bestseller__filters" role="list" aria-label="Produkt-Filter">
+      {%- for label in filter_labels -%}
+        {%- assign val = filter_values[forloop.index0] -%}
+        <li>
+          <button
+            class="np-filter-btn"
+            data-filter="{{ val }}"
+            aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+            type="button"
+          >
+            {{- label -}}
+          </button>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- comment -%} Produkt-Grid {%- endcomment -%}
+    <ul class="np-bestseller__grid" role="list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign rating     = block.settings.rating | default: 5
+          assign full_stars = rating | floor
+          assign has_half   = false
+          if rating != full_stars
+            assign has_half = true
+          endif
+          assign empty_stars = 5 | minus: full_stars
+          if has_half
+            assign empty_stars = empty_stars | minus: 1
+          endif
+          assign category_val = block.settings.category | downcase | strip
+        -%}
+        <li
+          data-category="{{ category_val }}"
+          {{ block.shopify_attributes }}
+        >
+          <article class="np-product-card">
+
+            {%- comment -%} Badge {%- endcomment -%}
+            {%- if block.settings.badge != blank -%}
+              {%- assign badge_lower = block.settings.badge | downcase -%}
+              {%- if badge_lower == 'bestseller' -%}
+                {%- assign badge_mod = 'bestseller' -%}
+              {%- elsif badge_lower == 'sale' -%}
+                {%- assign badge_mod = 'sale' -%}
+              {%- else -%}
+                {%- assign badge_mod = 'new' -%}
+              {%- endif -%}
+              <span class="np-product-card__badge np-product-card__badge--{{ badge_mod }}">
+                {{- block.settings.badge | escape -}}
+              </span>
+            {%- endif -%}
+
+            {%- comment -%} Produktbild {%- endcomment -%}
+            <a href="{{ block.settings.link | default: '#' }}" class="np-product-card__img-wrap" tabindex="-1" aria-hidden="true">
+              {%- if block.settings.image != blank -%}
+                {%- assign img_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag:
+                    class: 'np-product-card__img',
+                    sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+                    widths: '200, 300, 400, 600, 800',
+                    width: block.settings.image.width,
+                    height: img_height,
+                    loading: 'lazy',
+                    alt: block.settings.title | escape
+                }}
+              {%- else -%}
+                <div class="np-product-card__placeholder" aria-hidden="true">
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </a>
+
+            {%- comment -%} Karten-Body {%- endcomment -%}
+            <div class="np-product-card__body">
+
+              {%- comment -%} Produktname {%- endcomment -%}
+              <h3 class="np-product-card__title">
+                <a href="{{ block.settings.link | default: '#' }}" class="link link--text">
+                  {{- block.settings.title | default: 'Produktname' | escape -}}
+                </a>
+              </h3>
+
+              {%- comment -%} Sternebewertung {%- endcomment -%}
+              {%- if block.settings.show_rating -%}
+                <div class="np-product-card__rating" aria-label="{{ rating }} von 5 Sternen">
+                  <div class="np-stars" aria-hidden="true">
+                    {%- comment -%} Volle Sterne {%- endcomment -%}
+                    {%- for i in (1..full_stars) -%}
+                      <svg class="np-star np-star--full" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204z"/>
+                      </svg>
+                    {%- endfor -%}
+                    {%- comment -%} Halber Stern {%- endcomment -%}
+                    {%- if has_half -%}
+                      <svg class="np-star np-star--half" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91V0z"/>
+                        <path d="M7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204L7 0v10.91z"/>
+                      </svg>
+                    {%- endif -%}
+                    {%- comment -%} Leere Sterne {%- endcomment -%}
+                    {%- if empty_stars > 0 -%}
+                      {%- for i in (1..empty_stars) -%}
+                        <svg class="np-star np-star--empty" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204z"/>
+                        </svg>
+                      {%- endfor -%}
+                    {%- endif -%}
+                  </div>
+                  {%- if block.settings.rating_count > 0 -%}
+                    <span class="np-product-card__rating-count">({{ block.settings.rating_count }})</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} Preis {%- endcomment -%}
+              <div class="np-product-card__price">
+                <span class="np-product-card__price-current">
+                  {{- block.settings.price | default: '0,00 €' | escape -}}
+                </span>
+                {%- if block.settings.price_compare != blank -%}
+                  <s class="np-product-card__price-compare">
+                    {{- block.settings.price_compare | escape -}}
+                  </s>
+                {%- endif -%}
+              </div>
+
+              {%- comment -%} In den Warenkorb {%- endcomment -%}
+              <a
+                href="{{ block.settings.link | default: '#' }}"
+                class="np-product-card__atc"
+              >
+                {{- block.settings.atc_label | default: 'IN DEN WARENKORB' | escape -}}
+              </a>
+
+            </div>
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bestseller-Grid",
+  "tag": "section",
+  "class": "np-bestseller-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "UNSERE BESTSELLER"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Produkt",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Produkt"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Produktbild"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Produktname",
+          "default": "Produktname"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Produkt-Link"
+        },
+        {
+          "type": "header",
+          "content": "Preis"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Aktueller Preis",
+          "default": "29,90 \u20AC",
+          "info": "z.B. 29,90 \u20AC"
+        },
+        {
+          "type": "text",
+          "id": "price_compare",
+          "label": "Streichpreis (leer = kein Sale)",
+          "info": "z.B. 39,90 \u20AC – nur anzeigen wenn tatsächlich reduziert."
+        },
+        {
+          "type": "header",
+          "content": "Bewertung"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Sternebewertung anzeigen",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "label": "Bewertung (Sterne)",
+          "default": 5
+        },
+        {
+          "type": "number",
+          "id": "rating_count",
+          "label": "Anzahl Bewertungen",
+          "default": 0,
+          "info": "0 = Anzahl ausblenden"
+        },
+        {
+          "type": "header",
+          "content": "Badge & Filter"
+        },
+        {
+          "type": "select",
+          "id": "badge",
+          "label": "Badge",
+          "options": [
+            { "value": "",           "label": "Keiner" },
+            { "value": "Bestseller", "label": "Bestseller (schwarz)" },
+            { "value": "Sale",       "label": "Sale (rot)" },
+            { "value": "Neu",        "label": "Neu (dunkelgrau)" }
+          ],
+          "default": "Bestseller"
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Kategorie (für Filter)",
+          "options": [
+            { "value": "protein",  "label": "Protein" },
+            { "value": "creatin",  "label": "Creatin" },
+            { "value": "booster",  "label": "Booster" },
+            { "value": "vitamine", "label": "Vitamine" }
+          ],
+          "default": "protein"
+        },
+        {
+          "type": "text",
+          "id": "atc_label",
+          "label": "Button-Text",
+          "default": "IN DEN WARENKORB"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bestseller-Grid",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "title": "Whey Protein Classic",
+            "price": "29,90 \u20AC",
+            "badge": "Bestseller",
+            "category": "protein",
+            "rating": 5,
+            "rating_count": 128,
+            "show_rating": true
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Creatin Monohydrat",
+            "price": "14,90 \u20AC",
+            "badge": "Bestseller",
+            "category": "creatin",
+            "rating": 4.5,
+            "rating_count": 84,
+            "show_rating": true
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Pre-Workout Booster",
+            "price": "34,90 \u20AC",
+            "price_compare": "44,90 \u20AC",
+            "badge": "Sale",
+            "category": "booster",
+            "rating": 4.5,
+            "rating_count": 56,
+            "show_rating": true
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Vitamin D3 + K2",
+            "price": "12,90 \u20AC",
+            "badge": "Neu",
+            "category": "vitamine",
+            "rating": 5,
+            "rating_count": 22,
+            "show_rating": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
