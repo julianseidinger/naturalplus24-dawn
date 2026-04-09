@@ -78,6 +78,16 @@
       },
       "block_order": ["cat-1", "cat-2", "cat-3"]
     },
+    "promo-banner": {
+      "type": "promo-banner",
+      "settings": {
+        "badge": "SALE",
+        "heading": "BIS ZU 30% SPAREN",
+        "subtext": "Sichere dir jetzt unsere besten Angebote \u2013 solange der Vorrat reicht.",
+        "button_label": "JETZT SPAREN",
+        "button_link": "shopify://collections/all"
+      }
+    },
     "bestseller-grid": {
       "type": "bestseller-grid",
       "blocks": {
@@ -149,6 +159,7 @@
     "hero-banner",
     "trust-bar",
     "goal-categories",
-    "bestseller-grid"
+    "bestseller-grid",
+    "promo-banner"
   ]
 }

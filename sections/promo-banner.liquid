@@ -1,0 +1,116 @@
+{{ 'naturalplus-promo-banner.css' | asset_url | stylesheet_tag }}
+
+<section class="np-promo-banner" aria-label="{{ section.settings.heading | escape }}">
+
+  {%- comment -%} ── Linke Hälfte: Text ── {%- endcomment -%}
+  <div class="np-promo-banner__text">
+
+    {%- if section.settings.badge != blank -%}
+      <span class="np-promo-banner__badge">{{ section.settings.badge | escape }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="np-promo-banner__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <p class="np-promo-banner__subtext">{{ section.settings.subtext | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <a
+        href="{{ section.settings.button_link | default: '#' }}"
+        class="np-promo-banner__btn"
+      >
+        {{- section.settings.button_label | escape -}}
+      </a>
+    {%- endif -%}
+
+  </div>
+
+  {%- comment -%} ── Rechte Hälfte: Bild ── {%- endcomment -%}
+  <div class="np-promo-banner__media">
+    {%- if section.settings.image != blank -%}
+      {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+      {{
+        section.settings.image
+        | image_url: width: 1600
+        | image_tag:
+          class: 'np-promo-banner__img',
+          sizes: '(min-width: 750px) 50vw, 100vw',
+          widths: '375, 550, 750, 900, 1200, 1600',
+          width: section.settings.image.width,
+          height: image_height,
+          loading: 'lazy',
+          alt: section.settings.heading | escape
+      }}
+    {%- else -%}
+      <div class="np-promo-banner__placeholder" aria-hidden="true">
+        {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Promo-Banner",
+  "tag": "section",
+  "class": "np-promo-banner-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text (linke H\u00e4lfte)"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge / Label (optional)",
+      "info": "z.B. LIMITIERT oder SALE – erscheint rot \u00fcber der Headline. Leer lassen zum Ausblenden.",
+      "default": "SALE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Headline",
+      "default": "BIS ZU 30% SPAREN"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Sichere dir jetzt unsere besten Angebote \u2013 solange der Vorrat reicht."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Text",
+      "default": "JETZT SPAREN"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button-Link"
+    },
+    {
+      "type": "header",
+      "content": "Bild (rechte H\u00e4lfte)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Aktions- oder Produktbild",
+      "info": "Empfehlung: Hochformat oder quadratisch, mind. 800\u00d71000px."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo-Banner"
+    }
+  ]
+}
+{% endschema %}
