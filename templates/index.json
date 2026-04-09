@@ -78,6 +78,67 @@
       },
       "block_order": ["cat-1", "cat-2", "cat-3"]
     },
+    "new-products-carousel": {
+      "type": "new-products-carousel",
+      "blocks": {
+        "new-1": {
+          "type": "product",
+          "settings": {
+            "title": "Whey Isolat Pro",
+            "price": "39,90 \u20AC",
+            "rating": 5,
+            "rating_count": 12,
+            "show_rating": true,
+            "link": "shopify://collections/all"
+          }
+        },
+        "new-2": {
+          "type": "product",
+          "settings": {
+            "title": "BCAA Recovery",
+            "price": "24,90 \u20AC",
+            "rating": 4.5,
+            "rating_count": 8,
+            "show_rating": true,
+            "link": "shopify://collections/all"
+          }
+        },
+        "new-3": {
+          "type": "product",
+          "settings": {
+            "title": "Magnesium Komplex",
+            "price": "16,90 \u20AC",
+            "rating": 5,
+            "rating_count": 5,
+            "show_rating": true,
+            "link": "shopify://collections/all"
+          }
+        },
+        "new-4": {
+          "type": "product",
+          "settings": {
+            "title": "Omega-3 Premium",
+            "price": "19,90 \u20AC",
+            "rating": 4.5,
+            "rating_count": 3,
+            "show_rating": true,
+            "link": "shopify://collections/all"
+          }
+        },
+        "new-5": {
+          "type": "product",
+          "settings": {
+            "title": "Zink + Selen",
+            "price": "11,90 \u20AC",
+            "rating": 5,
+            "rating_count": 7,
+            "show_rating": true,
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": ["new-1", "new-2", "new-3", "new-4", "new-5"]
+    },
     "promo-banner": {
       "type": "promo-banner",
       "settings": {
@@ -160,6 +221,7 @@
     "trust-bar",
     "goal-categories",
     "bestseller-grid",
+    "new-products-carousel",
     "promo-banner"
   ]
 }

@@ -1,0 +1,198 @@
+/* NaturalPlus24 – Produkt-Karussell
+   Horizontales Scroll-Karussell mit CSS scroll-snap + Pfeil-Buttons
+   Produktkarten-Styles werden aus naturalplus-bestseller-grid.css wiederverwendet.
+   PRD Abschnitt 6.8 — Mobile First */
+
+
+/* ── Section-Wrapper ── */
+.np-carousel {
+  padding: 4.8rem 0;
+  background-color: var(--np-color-white);
+  overflow: hidden;              /* Verhindert horizontalen Page-Overflow */
+}
+
+@media screen and (min-width: 990px) {
+  .np-carousel {
+    padding: 6.4rem 0;
+  }
+}
+
+
+/* ── Kopfzeile: Headline + optionaler "Alle anzeigen"-Link ── */
+.np-carousel__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  margin-bottom: 2.8rem;
+  padding: 0 2rem;
+}
+
+@media screen and (min-width: 990px) {
+  .np-carousel__header {
+    padding: 0 5rem;
+  }
+}
+
+/* page-width-Padding des Shopify-Containers überschreiben –
+   Track läuft randlos, Header benutzt manuelles Padding */
+.np-carousel > .page-width {
+  padding: 0;
+  max-width: 100%;
+}
+
+.np-carousel__heading {
+  font-family: var(--np-font-body);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 3vw + 0.5rem, 3.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--np-color-black);
+  margin: 0;
+  text-align: left;
+}
+
+.np-carousel__view-all {
+  font-family: var(--np-font-body);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--np-color-red);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.np-carousel__view-all:hover {
+  color: var(--np-color-red-dark);
+  text-decoration: underline;
+}
+
+
+/* ── Track-Wrapper: Pfeil-Buttons + scrollbarer Track ── */
+.np-carousel__track-wrap {
+  position: relative;
+}
+
+
+/* ── Scrollbarer Track ── */
+.np-carousel__track {
+  display: flex;
+  gap: 1.6rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Scrollbar verstecken – visuell sauber */
+  scrollbar-width: none;
+  padding: 0.4rem 2rem 1.6rem;  /* Unten Platz für Box-Shadow der Karten */
+  list-style: none;
+  margin: 0;
+}
+
+.np-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .np-carousel__track {
+    gap: 2.4rem;
+    padding: 0.4rem 5rem 1.6rem;
+  }
+}
+
+
+/* ── Einzelnes Karussell-Item ── */
+.np-carousel__item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+
+  /* Mobil-small (<480px): 1,2 Karten sichtbar */
+  width: calc(83.33% - 0.8rem);
+}
+
+/* Mobil (≥480px): 2 Karten sichtbar */
+@media screen and (min-width: 480px) {
+  .np-carousel__item {
+    width: calc(50% - 0.8rem);
+  }
+}
+
+/* Tablet (≥750px): 3 Karten sichtbar */
+@media screen and (min-width: 750px) {
+  .np-carousel__item {
+    width: calc(33.333% - 1.1rem);
+  }
+}
+
+/* Desktop (≥990px): 4 Karten sichtbar */
+@media screen and (min-width: 990px) {
+  .np-carousel__item {
+    width: calc(25% - 1.8rem);
+  }
+}
+
+
+/* ── Pfeil-Buttons (nur Desktop sichtbar) ── */
+.np-carousel__btn {
+  display: none;                 /* Mobil: ausgeblendet */
+}
+
+@media screen and (min-width: 990px) {
+  .np-carousel__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 4.4rem;
+    height: 4.4rem;
+    background-color: var(--np-color-white);
+    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 150ms ease, border-color 150ms ease;
+    /* Box-Shadow des Tracks ausgleichen */
+    margin-top: -0.8rem;
+  }
+
+  .np-carousel__btn:hover {
+    background-color: var(--np-color-black);
+    border-color: var(--np-color-black);
+  }
+
+  .np-carousel__btn:hover .np-carousel__btn-icon {
+    stroke: var(--np-color-white);
+  }
+
+  .np-carousel__btn--prev {
+    left: 0.8rem;
+  }
+
+  .np-carousel__btn--next {
+    right: 0.8rem;
+  }
+
+  /* Deaktivierter Zustand (JS setzt disabled-Attribut) */
+  .np-carousel__btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+/* Pfeil-Icon (SVG-Linie) */
+.np-carousel__btn-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+  stroke: var(--np-color-black);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 150ms ease;
+  flex-shrink: 0;
+}

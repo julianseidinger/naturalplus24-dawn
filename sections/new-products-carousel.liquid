@@ -1,0 +1,288 @@
+{{ 'naturalplus-bestseller-grid.css' | asset_url | stylesheet_tag }}
+{{ 'naturalplus-carousel.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'naturalplus-carousel.js' | asset_url }}" defer="defer"></script>
+
+<section class="np-carousel" aria-label="{{ section.settings.heading | default: 'Neue Produkte' | escape }}">
+  <div class="page-width">
+
+    {%- comment -%} ── Kopfzeile ── {%- endcomment -%}
+    <div class="np-carousel__header">
+      <h2 class="np-carousel__heading">
+        {{- section.settings.heading | default: 'NEU BEI NATURALPLUS' | escape -}}
+      </h2>
+      {%- if section.settings.view_all_link != blank -%}
+        <a href="{{ section.settings.view_all_link }}" class="np-carousel__view-all">
+          Alle ansehen
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ── Track-Wrapper mit Pfeil-Buttons ── {%- endcomment -%}
+    <div class="np-carousel__track-wrap">
+
+      {%- comment -%} Prev-Button – nur auf Desktop sichtbar (CSS) {%- endcomment -%}
+      <button
+        class="np-carousel__btn np-carousel__btn--prev"
+        type="button"
+        aria-label="Vorheriges Produkt"
+        disabled
+      >
+        <svg class="np-carousel__btn-icon" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polyline points="11 4 6 9 11 14"/>
+        </svg>
+      </button>
+
+      {%- comment -%} Scrollbarer Track ── {%- endcomment -%}
+      <ul class="np-carousel__track" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign rating     = block.settings.rating | default: 5
+            assign full_stars = rating | floor
+            assign has_half   = false
+            if rating != full_stars
+              assign has_half = true
+            endif
+            assign empty_stars = 5 | minus: full_stars
+            if has_half
+              assign empty_stars = empty_stars | minus: 1
+            endif
+          -%}
+          <li class="np-carousel__item" {{ block.shopify_attributes }}>
+            <article class="np-product-card">
+
+              {%- comment -%} Badge: fix "NEU" ── {%- endcomment -%}
+              <span class="np-product-card__badge np-product-card__badge--new">Neu</span>
+
+              {%- comment -%} Produktbild ── {%- endcomment -%}
+              <a href="{{ block.settings.link | default: '#' }}" class="np-product-card__img-wrap" tabindex="-1" aria-hidden="true">
+                {%- if block.settings.image != blank -%}
+                  {%- assign img_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      class: 'np-product-card__img',
+                      sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, (min-width: 480px) 50vw, 85vw',
+                      widths: '200, 300, 400, 600, 800',
+                      width: block.settings.image.width,
+                      height: img_height,
+                      loading: 'lazy',
+                      alt: block.settings.title | escape
+                  }}
+                {%- else -%}
+                  <div class="np-product-card__placeholder" aria-hidden="true">
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </a>
+
+              {%- comment -%} Karten-Body ── {%- endcomment -%}
+              <div class="np-product-card__body">
+
+                <h3 class="np-product-card__title">
+                  <a href="{{ block.settings.link | default: '#' }}" class="link link--text">
+                    {{- block.settings.title | default: 'Produktname' | escape -}}
+                  </a>
+                </h3>
+
+                {%- if block.settings.show_rating -%}
+                  <div class="np-product-card__rating" aria-label="{{ rating }} von 5 Sternen">
+                    <div class="np-stars" aria-hidden="true">
+                      {%- for i in (1..full_stars) -%}
+                        <svg class="np-star np-star--full" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204z"/>
+                        </svg>
+                      {%- endfor -%}
+                      {%- if has_half -%}
+                        <svg class="np-star np-star--half" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91V0z"/>
+                          <path d="M7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204L7 0v10.91z"/>
+                        </svg>
+                      {%- endif -%}
+                      {%- if empty_stars > 0 -%}
+                        {%- for i in (1..empty_stars) -%}
+                          <svg class="np-star np-star--empty" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204z"/>
+                          </svg>
+                        {%- endfor -%}
+                      {%- endif -%}
+                    </div>
+                    {%- if block.settings.rating_count > 0 -%}
+                      <span class="np-product-card__rating-count">({{ block.settings.rating_count }})</span>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+
+                <div class="np-product-card__price">
+                  <span class="np-product-card__price-current">
+                    {{- block.settings.price | default: '0,00 €' | escape -}}
+                  </span>
+                  {%- if block.settings.price_compare != blank -%}
+                    <s class="np-product-card__price-compare">
+                      {{- block.settings.price_compare | escape -}}
+                    </s>
+                  {%- endif -%}
+                </div>
+
+                <a href="{{ block.settings.link | default: '#' }}" class="np-product-card__atc">
+                  IN DEN WARENKORB
+                </a>
+
+              </div>
+            </article>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- comment -%} Next-Button – nur auf Desktop sichtbar (CSS) {%- endcomment -%}
+      <button
+        class="np-carousel__btn np-carousel__btn--next"
+        type="button"
+        aria-label="Nächstes Produkt"
+      >
+        <svg class="np-carousel__btn-icon" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polyline points="7 4 12 9 7 14"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Neue Produkte",
+  "tag": "section",
+  "class": "np-new-products-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "\u00dcberschrift",
+      "default": "NEU BEI NATURALPLUS"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "\"Alle ansehen\"-Link (optional)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Produkt",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Produktbild"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Produktname",
+          "default": "Neues Produkt"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Produkt-Link"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Aktueller Preis",
+          "default": "29,90 \u20AC"
+        },
+        {
+          "type": "text",
+          "id": "price_compare",
+          "label": "Streichpreis (leer = kein Sale)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Sternebewertung anzeigen",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "label": "Bewertung (Sterne)",
+          "default": 5
+        },
+        {
+          "type": "number",
+          "id": "rating_count",
+          "label": "Anzahl Bewertungen",
+          "default": 0,
+          "info": "0 = Anzahl ausblenden"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Neue Produkte",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "title": "Whey Isolat Pro",
+            "price": "39,90 \u20AC",
+            "rating": 5,
+            "rating_count": 12,
+            "show_rating": true
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "BCAA Recovery",
+            "price": "24,90 \u20AC",
+            "rating": 4.5,
+            "rating_count": 8,
+            "show_rating": true
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Magnesium Komplex",
+            "price": "16,90 \u20AC",
+            "rating": 5,
+            "rating_count": 5,
+            "show_rating": true
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Omega-3 Premium",
+            "price": "19,90 \u20AC",
+            "rating": 4.5,
+            "rating_count": 3,
+            "show_rating": true
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "title": "Zink + Selen",
+            "price": "11,90 \u20AC",
+            "rating": 5,
+            "rating_count": 7,
+            "show_rating": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
