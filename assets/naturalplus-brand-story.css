@@ -1,0 +1,147 @@
+/* NaturalPlus24 – Brand Story / Warum NaturalPlus?
+   Dunkler Hintergrund (#1A1A1A), weiße Texte, rote Icon-Akzente
+   PRD Abschnitt 6.9 — Mobile First */
+
+
+/* ── Section-Wrapper ── */
+.np-brand-story {
+  background-color: var(--np-color-dark);
+  padding: 5.6rem 0;
+}
+
+@media screen and (min-width: 990px) {
+  .np-brand-story {
+    padding: 8rem 0;
+  }
+}
+
+
+/* ── Kopfbereich: Kicker + Hauptheadline ── */
+.np-brand-story__header {
+  text-align: center;
+  margin-bottom: 5.6rem;
+}
+
+/* Kleine rote Kicker-Zeile ("WARUM NATURALPLUS?") */
+.np-brand-story__kicker {
+  display: inline-block;
+  font-family: var(--np-font-body);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--np-color-red);
+  margin-bottom: 1.4rem;
+}
+
+/* Hauptheadline */
+.np-brand-story__heading {
+  font-family: var(--np-font-body);
+  font-weight: 800;
+  font-size: clamp(2.8rem, 4vw + 0.5rem, 4.8rem);
+  line-height: 1.06;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--np-color-white);
+  margin: 0;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ── Spalten-Grid: 1 → 2×2 → 4 ── */
+.np-brand-story__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem 3.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (min-width: 580px) {
+  .np-brand-story__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4.8rem 4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .np-brand-story__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3.2rem;
+  }
+}
+
+
+/* ── Einzelne Spalte ── */
+.np-brand-story__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+}
+
+/* Zentriert auf Mobil */
+@media screen and (max-width: 579px) {
+  .np-brand-story__item {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+
+/* ── Icon-Container (~40px) ── */
+.np-brand-story__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+}
+
+.np-brand-story__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* SVG-Pfade: Rot als primäre Akzentfarbe */
+.np-brand-story__icon svg path,
+.np-brand-story__icon svg circle,
+.np-brand-story__icon svg rect,
+.np-brand-story__icon svg polygon,
+.np-brand-story__icon svg polyline,
+.np-brand-story__icon svg ellipse {
+  fill: var(--np-color-red);
+}
+
+
+/* ── Text-Block ── */
+.np-brand-story__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Fette Unterüberschrift */
+.np-brand-story__title {
+  font-family: var(--np-font-body);
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1.25;
+  color: var(--np-color-white);
+  margin: 0;
+}
+
+/* Kurztext */
+.np-brand-story__desc {
+  font-family: var(--np-font-body);
+  font-weight: 400;
+  font-size: 1.45rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}

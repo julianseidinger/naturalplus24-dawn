@@ -139,6 +139,44 @@
       },
       "block_order": ["new-1", "new-2", "new-3", "new-4", "new-5"]
     },
+    "brand-story": {
+      "type": "brand-story",
+      "blocks": {
+        "feat-1": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Europ\u00e4ische Qualit\u00e4t",
+            "description": "Hergestellt in Rum\u00e4nien nach h\u00f6chsten europ\u00e4ischen Produktionsstandards."
+          }
+        },
+        "feat-2": {
+          "type": "feature",
+          "settings": {
+            "icon": "check-mark",
+            "title": "Transparent & Ehrlich",
+            "description": "Alle Inhaltsstoffe offen deklariert \u2013 keine versteckten Zus\u00e4tze, keine leeren Versprechen."
+          }
+        },
+        "feat-3": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "title": "Gepr\u00fcfte Inhaltsstoffe",
+            "description": "Jede Charge wird auf Reinheit und Wirkstoffgehalt unabh\u00e4ngig getestet."
+          }
+        },
+        "feat-4": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "\u00DCber 10.000 Kunden",
+            "description": "Tausende zufriedene Kunden vertrauen t\u00e4glich auf NaturalPlus Supplemente."
+          }
+        }
+      },
+      "block_order": ["feat-1", "feat-2", "feat-3", "feat-4"]
+    },
     "promo-banner": {
       "type": "promo-banner",
       "settings": {
@@ -222,6 +260,7 @@
     "goal-categories",
     "bestseller-grid",
     "promo-banner",
-    "new-products-carousel"
+    "new-products-carousel",
+    "brand-story"
   ]
 }

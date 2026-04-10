@@ -1,0 +1,149 @@
+{{ 'naturalplus-brand-story.css' | asset_url | stylesheet_tag }}
+
+<section class="np-brand-story" aria-labelledby="BrandStoryHeading-{{ section.id }}">
+  <div class="page-width">
+
+    {%- comment -%} ── Kopfbereich ── {%- endcomment -%}
+    <div class="np-brand-story__header">
+      {%- if section.settings.kicker != blank -%}
+        <p class="np-brand-story__kicker">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="np-brand-story__heading" id="BrandStoryHeading-{{ section.id }}">
+          {{- section.settings.heading | escape -}}
+        </h2>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ── Feature-Grid ── {%- endcomment -%}
+    <ul class="np-brand-story__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="np-brand-story__item" {{ block.shopify_attributes }}>
+
+          {%- comment -%} Icon aus vorhandenen Dawn-Assets {%- endcomment -%}
+          {%- if block.settings.icon != blank -%}
+            <span class="np-brand-story__icon" aria-hidden="true">
+              {%- assign icon_file = block.settings.icon | prepend: 'icon-' | append: '.svg' -%}
+              {{ icon_file | inline_asset_content }}
+            </span>
+          {%- endif -%}
+
+          <div class="np-brand-story__text">
+            {%- if block.settings.title != blank -%}
+              <h3 class="np-brand-story__title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="np-brand-story__desc">{{ block.settings.description | escape }}</p>
+            {%- endif -%}
+          </div>
+
+        </li>
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "tag": "section",
+  "class": "np-brand-story-section",
+  "max_blocks": 4,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker (klein, rot, UPPERCASE)",
+      "default": "WARUM NATURALPLUS?",
+      "info": "Kleine Zeile \u00fcber der Hauptheadline. Leer lassen zum Ausblenden."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hauptheadline",
+      "default": "QUALIT\u00C4T, DIE MAN SP\u00DCRT"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf",        "label": "Blatt (Natur / Europa)" },
+            { "value": "check-mark",  "label": "H\u00e4kchen (Qualit\u00e4t)" },
+            { "value": "clipboard",   "label": "Klemmbrett (Inhaltsstoffe)" },
+            { "value": "heart",       "label": "Herz (Kunden)" },
+            { "value": "star",        "label": "Stern (Bewertung)" },
+            { "value": "lock",        "label": "Schloss (Vertrauen)" },
+            { "value": "truck",       "label": "Lieferwagen (Versand)" },
+            { "value": "padlock",     "label": "Vorhangschloss (Sicherheit)" },
+            { "value": "fire",        "label": "Feuer (Energie)" },
+            { "value": "lightning-bolt", "label": "Blitz (Performance)" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titel",
+          "default": "Unser Merkmal"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Kurztext",
+          "default": "Kurze Beschreibung des Merkmals."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Europ\u00e4ische Qualit\u00e4t",
+            "description": "Hergestellt in Rum\u00e4nien nach h\u00f6chsten europ\u00e4ischen Produktionsstandards."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "check-mark",
+            "title": "Transparent & Ehrlich",
+            "description": "Alle Inhaltsstoffe offen deklariert \u2013 keine versteckten Zus\u00e4tze, keine leeren Versprechen."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "title": "Gepr\u00fcfte Inhaltsstoffe",
+            "description": "Jede Charge wird auf Reinheit und Wirkstoffgehalt unabh\u00e4ngig getestet."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "\u00DCber 10.000 Kunden",
+            "description": "Tausende zufriedene Kunden vertrauen t\u00e4glich auf NaturalPlus Supplemente."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
