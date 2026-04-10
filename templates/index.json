@@ -220,6 +220,15 @@
         "button_link": "shopify://collections/all"
       }
     },
+    "newsletter-banner": {
+      "type": "newsletter-banner",
+      "settings": {
+        "heading": "10% RABATT AUF DEINE ERSTE BESTELLUNG",
+        "subtext": "Kein Spam. Jederzeit abmeldbar.",
+        "input_placeholder": "Deine E-Mail-Adresse",
+        "button_label": "Anmelden"
+      }
+    },
     "bestseller-grid": {
       "type": "bestseller-grid",
       "blocks": {
@@ -295,6 +304,7 @@
     "promo-banner",
     "new-products-carousel",
     "brand-story",
-    "customer-reviews"
+    "customer-reviews",
+    "newsletter-banner"
   ]
 }

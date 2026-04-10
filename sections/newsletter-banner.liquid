@@ -1,0 +1,111 @@
+{{ 'naturalplus-newsletter-banner.css' | asset_url | stylesheet_tag }}
+
+<section class="np-nl-banner" aria-label="Newsletter">
+  <div class="page-width np-nl-banner__inner">
+
+    {%- comment -%} Linke Seite: Text ── {%- endcomment -%}
+    <div class="np-nl-banner__text">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="np-nl-banner__heading">
+          {{- section.settings.heading | escape -}}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.subtext != blank -%}
+        <p class="np-nl-banner__subtext">
+          {{- section.settings.subtext | escape -}}
+        </p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Rechte Seite: Formular ── {%- endcomment -%}
+    <div class="np-nl-banner__form-wrap">
+      {% form 'customer', id: "NlBannerForm-{{ section.id }}", class: 'np-nl-banner__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
+        {%- if form.posted_successfully? -%}
+          <p class="np-nl-banner__success" role="status">
+            {{- 'newsletter.success' | t -}}
+          </p>
+        {%- else -%}
+
+          {%- if form.errors -%}
+            <p class="np-nl-banner__error" role="alert">
+              {{- form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email -}}
+            </p>
+          {%- endif -%}
+
+          <div class="np-nl-banner__field-row">
+            <label for="NlBannerEmail-{{ section.id }}" class="visually-hidden">
+              E-Mail-Adresse
+            </label>
+            <input
+              id="NlBannerEmail-{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              class="np-nl-banner__input"
+              placeholder="{{ section.settings.input_placeholder | escape }}"
+              value="{{ form.email }}"
+              aria-required="true"
+              autocomplete="email"
+              autocapitalize="off"
+              autocorrect="off"
+              required
+              {%- if form.errors -%}
+                aria-invalid="true"
+                autofocus
+              {%- endif -%}
+            >
+            <button type="submit" class="np-nl-banner__btn" name="commit">
+              {{- section.settings.button_label | escape | upcase -}}
+            </button>
+          </div>
+
+        {%- endif -%}
+      {% endform %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter-Banner",
+  "tag": "section",
+  "class": "np-nl-banner-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Überschrift",
+      "default": "10% RABATT AUF DEINE ERSTE BESTELLUNG"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Kein Spam. Jederzeit abmeldbar."
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Platzhaltertext (E-Mail-Feld)",
+      "default": "Deine E-Mail-Adresse"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button-Beschriftung",
+      "default": "Anmelden"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter-Banner"
+    }
+  ]
+}
+{% endschema %}

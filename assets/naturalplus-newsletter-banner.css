@@ -1,0 +1,167 @@
+/* =========================================================
+   NaturalPlus24 – Newsletter-Banner (Sektion 6.11)
+   ========================================================= */
+
+:root {
+  --np-nl-bg: #0D0D0D;
+  --np-nl-border: rgba(255, 255, 255, 0.15);
+  --np-nl-input-bg: rgba(255, 255, 255, 0.06);
+  --np-nl-input-border: rgba(255, 255, 255, 0.35);
+  --np-nl-subtext: rgba(255, 255, 255, 0.65);
+  --np-nl-btn-bg: #D2090E;
+  --np-nl-btn-hover: #A5070B;
+}
+
+/* ── Wrapper ── */
+.np-nl-banner {
+  background-color: var(--np-nl-bg);
+  border-top: 1px solid var(--np-nl-border);
+  border-bottom: 1px solid var(--np-nl-border);
+  padding: 3.2rem 0;
+}
+
+/* ── Zweispaltig-Layout (Mobile First: eingespaltig) ── */
+.np-nl-banner__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .np-nl-banner__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+}
+
+/* ── Linke Seite: Text ── */
+.np-nl-banner__text {
+  flex: 1 1 auto;
+}
+
+.np-nl-banner__heading {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0 0 0.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .np-nl-banner__heading {
+    font-size: 2.4rem;
+  }
+}
+
+.np-nl-banner__subtext {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--np-nl-subtext);
+  margin: 0;
+}
+
+/* ── Rechte Seite: Formular ── */
+.np-nl-banner__form-wrap {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .np-nl-banner__form-wrap {
+    width: auto;
+    min-width: 38rem;
+  }
+}
+
+.np-nl-banner__form {
+  width: 100%;
+}
+
+/* ── Input + Button in einer Zeile ── */
+.np-nl-banner__field-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+}
+
+/* ── E-Mail-Input ── */
+.np-nl-banner__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background-color: var(--np-nl-input-bg);
+  border: 1px solid var(--np-nl-input-border);
+  border-right: none;
+  border-radius: 3px 0 0 3px;
+  color: #FFFFFF;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 1.2rem 1.6rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.np-nl-banner__input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.np-nl-banner__input:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Submit-Button ── */
+.np-nl-banner__btn {
+  flex: 0 0 auto;
+  background-color: var(--np-nl-btn-bg);
+  border: 1px solid var(--np-nl-btn-bg);
+  border-radius: 0 3px 3px 0;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1.2rem 2rem;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  line-height: 1;
+}
+
+.np-nl-banner__btn:hover,
+.np-nl-banner__btn:focus-visible {
+  background-color: var(--np-nl-btn-hover);
+  border-color: var(--np-nl-btn-hover);
+  outline: none;
+}
+
+.np-nl-banner__btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--np-nl-btn-bg);
+}
+
+/* ── Erfolgs- und Fehlermeldungen ── */
+.np-nl-banner__success,
+.np-nl-banner__error {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.4rem;
+  margin: 0;
+  padding: 1.2rem 0;
+}
+
+.np-nl-banner__success {
+  color: #4CAF50;
+}
+
+.np-nl-banner__error {
+  color: #ff6b6b;
+  margin-bottom: 0.8rem;
+}
