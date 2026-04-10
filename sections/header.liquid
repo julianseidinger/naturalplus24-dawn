@@ -96,15 +96,6 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-
-  /* NaturalPlus: Header-Hintergrund synchron setzen um FOUC zu vermeiden.
-     .gradient aus Dawn würde sonst async-CSS (naturalplus-header.css)
-     durch background-attachment: fixed und background-color: white
-     kurzzeitig überschreiben. */
-  .section-header .header-wrapper {
-    background: #0D0D0D;
-    background-color: #0D0D0D;
-  }
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
@@ -157,38 +148,19 @@
             {%- if settings.logo != blank -%}
               <div class="header__heading-logo-wrapper">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-                {%- comment -%} Fallback für SVGs: aspect_ratio ist nil → divided_by ergibt 0 → default greift nicht ─{%- endcomment -%}
-                {%- assign logo_aspect = settings.logo.aspect_ratio | default: 0 -%}
-                {%- if logo_aspect > 0 -%}
-                  {%- assign logo_height = settings.logo_width | divided_by: logo_aspect | round -%}
-                {%- else -%}
-                  {%- assign logo_height = settings.logo_width -%}
-                {%- endif -%}
-                {%- comment -%} SVG: kein srcset – Shopify CDN liefert bei ?width= für SVGs
-                  manchmal leere/kaputte Bilder → Browser wechselt srcset-URL → Logo verschwindet ─{%- endcomment -%}
-                {%- if logo_aspect > 0 -%}
-                  {%- capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture -%}
-                  {%- capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture -%}
-                  {{ settings.logo | image_url: width: 600 | image_tag:
-                    class: 'header__heading-logo motion-reduce',
-                    widths: widths,
-                    height: logo_height,
-                    width: settings.logo_width,
-                    alt: logo_alt,
-                    sizes: sizes,
-                    preload: true,
-                    style: 'max-height: 60px; width: auto; height: auto;'
-                  }}
-                {%- else -%}
-                  {{ settings.logo | image_url: width: settings.logo_width | image_tag:
-                    class: 'header__heading-logo motion-reduce',
-                    height: logo_height,
-                    width: settings.logo_width,
-                    alt: logo_alt,
-                    preload: true,
-                    style: 'max-height: 60px; width: auto; height: auto;'
-                  }}
-                {%- endif -%}
+                {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio | default: settings.logo_width -%}
+                {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
+                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+                {{ settings.logo | image_url: width: 600 | image_tag:
+                  class: 'header__heading-logo motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true,
+                  style: 'max-height: 60px; width: auto; height: auto;'
+                }}
               </div>
             {%- else -%}
               <span class="h2">{{ shop.name }}</span>
@@ -217,38 +189,19 @@
             {%- if settings.logo != blank -%}
               <div class="header__heading-logo-wrapper">
                 {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-                {%- comment -%} Fallback für SVGs: aspect_ratio ist nil → divided_by ergibt 0 → default greift nicht ─{%- endcomment -%}
-                {%- assign logo_aspect = settings.logo.aspect_ratio | default: 0 -%}
-                {%- if logo_aspect > 0 -%}
-                  {%- assign logo_height = settings.logo_width | divided_by: logo_aspect | round -%}
-                {%- else -%}
-                  {%- assign logo_height = settings.logo_width -%}
-                {%- endif -%}
-                {%- comment -%} SVG: kein srcset – Shopify CDN liefert bei ?width= für SVGs
-                  manchmal leere/kaputte Bilder → Browser wechselt srcset-URL → Logo verschwindet ─{%- endcomment -%}
-                {%- if logo_aspect > 0 -%}
-                  {%- capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture -%}
-                  {%- capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture -%}
-                  {{ settings.logo | image_url: width: 600 | image_tag:
-                    class: 'header__heading-logo',
-                    widths: widths,
-                    height: logo_height,
-                    width: settings.logo_width,
-                    alt: logo_alt,
-                    sizes: sizes,
-                    preload: true,
-                    style: 'max-height: 60px; width: auto; height: auto;'
-                  }}
-                {%- else -%}
-                  {{ settings.logo | image_url: width: settings.logo_width | image_tag:
-                    class: 'header__heading-logo',
-                    height: logo_height,
-                    width: settings.logo_width,
-                    alt: logo_alt,
-                    preload: true,
-                    style: 'max-height: 60px; width: auto; height: auto;'
-                  }}
-                {%- endif -%}
+                {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio | default: settings.logo_width -%}
+                {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
+                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+                {{ settings.logo | image_url: width: 600 | image_tag:
+                  class: 'header__heading-logo',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true,
+                  style: 'max-height: 60px; width: auto; height: auto;'
+                }}
               </div>
             {%- else -%}
               <span class="h2">{{ shop.name }}</span>
