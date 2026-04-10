@@ -12,6 +12,7 @@
     "hero-banner": {
       "type": "hero-banner",
       "settings": {
+        "image": "shopify://shop_images/two-dumbells-against-a-dark-red-background.jpg",
         "overlay_opacity": 55,
         "min_height": "fullscreen",
         "heading": "DEIN BESTES TRAINING BEGINNT HIER",
@@ -220,7 +221,8 @@
         "heading": "BIS ZU 30% SPAREN",
         "subtext": "Sichere dir jetzt unsere besten Angebote – solange der Vorrat reicht.",
         "button_label": "JETZT SPAREN",
-        "button_link": "shopify://collections/all"
+        "button_link": "shopify://collections/all",
+        "image": "shopify://shop_images/sale-sign-on-angled-pink-gray-background.jpg"
       }
     },
     "new-products-carousel": {
@@ -229,6 +231,7 @@
         "new-1": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/natural-plus-natural-taste-XPLOSION-kiddy-choc.jpg",
             "title": "Whey Isolat Pro",
             "link": "shopify://collections/all",
             "price": "39,90 €",
