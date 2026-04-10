@@ -1,12 +1,21 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero-banner": {
       "type": "hero-banner",
       "settings": {
+        "overlay_opacity": 55,
+        "min_height": "fullscreen",
         "heading": "DEIN BESTES TRAINING BEGINNT HIER",
         "subtext": "Premium-Supplemente. Fairer Preis. Echter Unterschied.",
-        "min_height": "fullscreen",
-        "overlay_opacity": 55,
         "content_alignment": "center",
         "button_1_label": "JETZT ENTDECKEN",
         "button_1_link": "shopify://collections/all",
@@ -21,7 +30,7 @@
           "type": "usp",
           "settings": {
             "icon": "truck",
-            "text": "Versandkostenfrei ab 40\u20AC"
+            "text": "Versandkostenfrei ab 40€"
           }
         },
         "usp-2": {
@@ -35,18 +44,24 @@
           "type": "usp",
           "settings": {
             "icon": "stopwatch",
-            "text": "Schnelle Lieferung (2\u20134 Tage)"
+            "text": "Schnelle Lieferung (2–4 Tage)"
           }
         },
         "usp-4": {
           "type": "usp",
           "settings": {
             "icon": "return",
-            "text": "30 Tage R\u00FCckgabe"
+            "text": "30 Tage Rückgabe"
           }
         }
       },
-      "block_order": ["usp-1", "usp-2", "usp-3", "usp-4"]
+      "block_order": [
+        "usp-1",
+        "usp-2",
+        "usp-3",
+        "usp-4"
+      ],
+      "settings": {}
     },
     "goal-categories": {
       "type": "goal-categories",
@@ -70,13 +85,18 @@
         "cat-3": {
           "type": "category",
           "settings": {
-            "heading": "GESUNDHEIT & VITALIT\u00C4T",
+            "heading": "GESUNDHEIT & VITALITÄT",
             "button_label": "Jetzt entdecken",
             "link": "shopify://collections/all"
           }
         }
       },
-      "block_order": ["cat-1", "cat-2", "cat-3"]
+      "block_order": [
+        "cat-1",
+        "cat-2",
+        "cat-3"
+      ],
+      "settings": {}
     },
     "new-products-carousel": {
       "type": "new-products-carousel",
@@ -85,59 +105,66 @@
           "type": "product",
           "settings": {
             "title": "Whey Isolat Pro",
-            "price": "39,90 \u20AC",
-            "rating": 5,
-            "rating_count": 12,
+            "link": "shopify://collections/all",
+            "price": "39,90 €",
             "show_rating": true,
-            "link": "shopify://collections/all"
+            "rating": 5,
+            "rating_count": 12
           }
         },
         "new-2": {
           "type": "product",
           "settings": {
             "title": "BCAA Recovery",
-            "price": "24,90 \u20AC",
-            "rating": 4.5,
-            "rating_count": 8,
+            "link": "shopify://collections/all",
+            "price": "24,90 €",
             "show_rating": true,
-            "link": "shopify://collections/all"
+            "rating": 4.5,
+            "rating_count": 8
           }
         },
         "new-3": {
           "type": "product",
           "settings": {
             "title": "Magnesium Komplex",
-            "price": "16,90 \u20AC",
-            "rating": 5,
-            "rating_count": 5,
+            "link": "shopify://collections/all",
+            "price": "16,90 €",
             "show_rating": true,
-            "link": "shopify://collections/all"
+            "rating": 5,
+            "rating_count": 5
           }
         },
         "new-4": {
           "type": "product",
           "settings": {
             "title": "Omega-3 Premium",
-            "price": "19,90 \u20AC",
-            "rating": 4.5,
-            "rating_count": 3,
+            "link": "shopify://collections/all",
+            "price": "19,90 €",
             "show_rating": true,
-            "link": "shopify://collections/all"
+            "rating": 4.5,
+            "rating_count": 3
           }
         },
         "new-5": {
           "type": "product",
           "settings": {
             "title": "Zink + Selen",
-            "price": "11,90 \u20AC",
-            "rating": 5,
-            "rating_count": 7,
+            "link": "shopify://collections/all",
+            "price": "11,90 €",
             "show_rating": true,
-            "link": "shopify://collections/all"
+            "rating": 5,
+            "rating_count": 7
           }
         }
       },
-      "block_order": ["new-1", "new-2", "new-3", "new-4", "new-5"]
+      "block_order": [
+        "new-1",
+        "new-2",
+        "new-3",
+        "new-4",
+        "new-5"
+      ],
+      "settings": {}
     },
     "customer-reviews": {
       "type": "customer-reviews",
@@ -146,7 +173,7 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "quote": "Absolut \u00fcberzeugt! Die Qualit\u00e4t ist sp\u00fcrbar besser als bei anderen Marken \u2013 und das zu einem fairen Preis.",
+            "quote": "Absolut überzeugt! Die Qualität ist spürbar besser als bei anderen Marken – und das zu einem fairen Preis.",
             "name": "Max M.",
             "product": "Whey Protein Classic"
           }
@@ -164,13 +191,18 @@
           "type": "review",
           "settings": {
             "rating": 4.5,
-            "quote": "Endlich ein Booster ohne \u00fcbertriebenes Kribbeln. Gute Energie, saubere Inhaltsstoffe \u2013 genau was ich gesucht habe.",
+            "quote": "Endlich ein Booster ohne übertriebenes Kribbeln. Gute Energie, saubere Inhaltsstoffe – genau was ich gesucht habe.",
             "name": "Stefan R.",
             "product": "Pre-Workout Booster"
           }
         }
       },
-      "block_order": ["rev-1", "rev-2", "rev-3"]
+      "block_order": [
+        "rev-1",
+        "rev-2",
+        "rev-3"
+      ],
+      "settings": {}
     },
     "brand-story": {
       "type": "brand-story",
@@ -179,8 +211,8 @@
           "type": "feature",
           "settings": {
             "icon": "leaf",
-            "title": "Europ\u00e4ische Qualit\u00e4t",
-            "description": "Hergestellt in Rum\u00e4nien nach h\u00f6chsten europ\u00e4ischen Produktionsstandards."
+            "title": "Europäische Qualität",
+            "description": "Hergestellt in Rumänien nach höchsten europäischen Produktionsstandards."
           }
         },
         "feat-2": {
@@ -188,34 +220,40 @@
           "settings": {
             "icon": "check-mark",
             "title": "Transparent & Ehrlich",
-            "description": "Alle Inhaltsstoffe offen deklariert \u2013 keine versteckten Zus\u00e4tze, keine leeren Versprechen."
+            "description": "Alle Inhaltsstoffe offen deklariert – keine versteckten Zusätze, keine leeren Versprechen."
           }
         },
         "feat-3": {
           "type": "feature",
           "settings": {
             "icon": "clipboard",
-            "title": "Gepr\u00fcfte Inhaltsstoffe",
-            "description": "Jede Charge wird auf Reinheit und Wirkstoffgehalt unabh\u00e4ngig getestet."
+            "title": "Geprüfte Inhaltsstoffe",
+            "description": "Jede Charge wird auf Reinheit und Wirkstoffgehalt unabhängig getestet."
           }
         },
         "feat-4": {
           "type": "feature",
           "settings": {
             "icon": "heart",
-            "title": "\u00DCber 10.000 Kunden",
-            "description": "Tausende zufriedene Kunden vertrauen t\u00e4glich auf NaturalPlus Supplemente."
+            "title": "Über 10.000 Kunden",
+            "description": "Tausende zufriedene Kunden vertrauen täglich auf NaturalPlus Supplemente."
           }
         }
       },
-      "block_order": ["feat-1", "feat-2", "feat-3", "feat-4"]
+      "block_order": [
+        "feat-1",
+        "feat-2",
+        "feat-3",
+        "feat-4"
+      ],
+      "settings": {}
     },
     "promo-banner": {
       "type": "promo-banner",
       "settings": {
         "badge": "SALE",
         "heading": "BIS ZU 30% SPAREN",
-        "subtext": "Sichere dir jetzt unsere besten Angebote \u2013 solange der Vorrat reicht.",
+        "subtext": "Sichere dir jetzt unsere besten Angebote – solange der Vorrat reicht.",
         "button_label": "JETZT SPAREN",
         "button_link": "shopify://collections/all"
       }
@@ -236,64 +274,70 @@
           "type": "product",
           "settings": {
             "title": "Whey Protein Classic",
-            "price": "29,90 \u20AC",
+            "link": "shopify://collections/all",
+            "price": "29,90 €",
             "price_compare": "",
-            "badge": "Bestseller",
-            "category": "protein",
+            "show_rating": true,
             "rating": 5,
             "rating_count": 128,
-            "show_rating": true,
-            "atc_label": "IN DEN WARENKORB",
-            "link": "shopify://collections/all"
+            "badge": "Bestseller",
+            "category": "protein",
+            "atc_label": "IN DEN WARENKORB"
           }
         },
         "prod-2": {
           "type": "product",
           "settings": {
             "title": "Creatin Monohydrat",
-            "price": "14,90 \u20AC",
+            "link": "shopify://collections/all",
+            "price": "14,90 €",
             "price_compare": "",
-            "badge": "Bestseller",
-            "category": "creatin",
+            "show_rating": true,
             "rating": 4.5,
             "rating_count": 84,
-            "show_rating": true,
-            "atc_label": "IN DEN WARENKORB",
-            "link": "shopify://collections/all"
+            "badge": "Bestseller",
+            "category": "creatin",
+            "atc_label": "IN DEN WARENKORB"
           }
         },
         "prod-3": {
           "type": "product",
           "settings": {
             "title": "Pre-Workout Booster",
-            "price": "34,90 \u20AC",
-            "price_compare": "44,90 \u20AC",
-            "badge": "Sale",
-            "category": "booster",
+            "link": "shopify://collections/all",
+            "price": "34,90 €",
+            "price_compare": "44,90 €",
+            "show_rating": true,
             "rating": 4.5,
             "rating_count": 56,
-            "show_rating": true,
-            "atc_label": "IN DEN WARENKORB",
-            "link": "shopify://collections/all"
+            "badge": "Sale",
+            "category": "booster",
+            "atc_label": "IN DEN WARENKORB"
           }
         },
         "prod-4": {
           "type": "product",
           "settings": {
             "title": "Vitamin D3 + K2",
-            "price": "12,90 \u20AC",
+            "link": "shopify://collections/all",
+            "price": "12,90 €",
             "price_compare": "",
-            "badge": "Neu",
-            "category": "vitamine",
+            "show_rating": true,
             "rating": 5,
             "rating_count": 22,
-            "show_rating": true,
-            "atc_label": "IN DEN WARENKORB",
-            "link": "shopify://collections/all"
+            "badge": "Neu",
+            "category": "vitamine",
+            "atc_label": "IN DEN WARENKORB"
           }
         }
       },
-      "block_order": ["prod-1", "prod-2", "prod-3", "prod-4"]
+      "block_order": [
+        "prod-1",
+        "prod-2",
+        "prod-3",
+        "prod-4"
+      ],
+      "settings": {}
     }
   },
   "order": [
