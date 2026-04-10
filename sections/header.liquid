@@ -164,18 +164,31 @@
                 {%- else -%}
                   {%- assign logo_height = settings.logo_width -%}
                 {%- endif -%}
-                {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
-                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-                {{ settings.logo | image_url: width: 600 | image_tag:
-                  class: 'header__heading-logo motion-reduce',
-                  widths: widths,
-                  height: logo_height,
-                  width: settings.logo_width,
-                  alt: logo_alt,
-                  sizes: sizes,
-                  preload: true,
-                  style: 'max-height: 60px; width: auto; height: auto;'
-                }}
+                {%- comment -%} SVG: kein srcset – Shopify CDN liefert bei ?width= für SVGs
+                  manchmal leere/kaputte Bilder → Browser wechselt srcset-URL → Logo verschwindet ─{%- endcomment -%}
+                {%- if logo_aspect > 0 -%}
+                  {%- capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture -%}
+                  {%- capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture -%}
+                  {{ settings.logo | image_url: width: 600 | image_tag:
+                    class: 'header__heading-logo motion-reduce',
+                    widths: widths,
+                    height: logo_height,
+                    width: settings.logo_width,
+                    alt: logo_alt,
+                    sizes: sizes,
+                    preload: true,
+                    style: 'max-height: 60px; width: auto; height: auto;'
+                  }}
+                {%- else -%}
+                  {{ settings.logo | image_url: width: settings.logo_width | image_tag:
+                    class: 'header__heading-logo motion-reduce',
+                    height: logo_height,
+                    width: settings.logo_width,
+                    alt: logo_alt,
+                    preload: true,
+                    style: 'max-height: 60px; width: auto; height: auto;'
+                  }}
+                {%- endif -%}
               </div>
             {%- else -%}
               <span class="h2">{{ shop.name }}</span>
@@ -211,18 +224,31 @@
                 {%- else -%}
                   {%- assign logo_height = settings.logo_width -%}
                 {%- endif -%}
-                {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
-                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-                {{ settings.logo | image_url: width: 600 | image_tag:
-                  class: 'header__heading-logo',
-                  widths: widths,
-                  height: logo_height,
-                  width: settings.logo_width,
-                  alt: logo_alt,
-                  sizes: sizes,
-                  preload: true,
-                  style: 'max-height: 60px; width: auto; height: auto;'
-                }}
+                {%- comment -%} SVG: kein srcset – Shopify CDN liefert bei ?width= für SVGs
+                  manchmal leere/kaputte Bilder → Browser wechselt srcset-URL → Logo verschwindet ─{%- endcomment -%}
+                {%- if logo_aspect > 0 -%}
+                  {%- capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture -%}
+                  {%- capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture -%}
+                  {{ settings.logo | image_url: width: 600 | image_tag:
+                    class: 'header__heading-logo',
+                    widths: widths,
+                    height: logo_height,
+                    width: settings.logo_width,
+                    alt: logo_alt,
+                    sizes: sizes,
+                    preload: true,
+                    style: 'max-height: 60px; width: auto; height: auto;'
+                  }}
+                {%- else -%}
+                  {{ settings.logo | image_url: width: settings.logo_width | image_tag:
+                    class: 'header__heading-logo',
+                    height: logo_height,
+                    width: settings.logo_width,
+                    alt: logo_alt,
+                    preload: true,
+                    style: 'max-height: 60px; width: auto; height: auto;'
+                  }}
+                {%- endif -%}
               </div>
             {%- else -%}
               <span class="h2">{{ shop.name }}</span>
