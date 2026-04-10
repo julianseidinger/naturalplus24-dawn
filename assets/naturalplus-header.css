@@ -20,19 +20,42 @@
 
 
 /* ── Layout: Logo links – Nav mittig – Icons rechts ── */
-@media screen and (min-width: 990px) {
-  /* Grid-Spalten: Logo und Icons bekommen mindestens ihre Inhaltsbreite (nie 0), Nav auto mittig */
+
+/* 990–1199px: Hamburger-Ansicht – Desktop-Nav würde Logo quetschen */
+@media screen and (min-width: 990px) and (max-width: 1199px) {
+  /* Drawer-ähnliches Grid: Hamburger links, Logo in der Mitte (1fr), Icons rechts */
+  .section-header .header--middle-left {
+    grid-template-areas: 'navigation heading icons';
+    grid-template-columns: auto 1fr auto;
+    column-gap: 1rem;
+  }
+
+  /* Hamburger im Navigation-Bereich einblenden (überschreibt Inline-Style aus header.liquid) */
+  .section-header .header--middle-left header-drawer {
+    grid-area: navigation;
+    display: flex !important;
+  }
+
+  /* Desktop-Nav ausblenden */
+  .section-header .header__inline-menu {
+    display: none !important;
+  }
+}
+
+/* Ab 1200px: vollständige Desktop-Ansicht */
+@media screen and (min-width: 1200px) {
+  /* Grid-Spalten: Logo links, Nav mittig, Icons rechts – minmax() verhindert Spalten-Kollaps */
   .section-header .header--middle-left {
     grid-template-columns: minmax(auto, 1fr) auto minmax(auto, 1fr);
   }
 
-  /* Logo innerhalb seines 1fr-Bereichs linksbündig ausrichten */
+  /* Logo innerhalb seines Bereichs linksbündig ausrichten */
   .section-header .header--middle-left .header__heading,
   .section-header .header--middle-left .header__heading-link {
     justify-self: start;
   }
 
-  /* Icons innerhalb ihres 1fr-Bereichs rechtsbündig ausrichten */
+  /* Icons innerhalb ihres Bereichs rechtsbündig ausrichten */
   .section-header .header--middle-left .header__icons {
     justify-self: end;
   }
