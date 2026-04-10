@@ -1,0 +1,282 @@
+/* =========================================================
+   NaturalPlus24 – Footer Override (Sektion 6.12)
+   Kein Fork von footer.liquid – reine CSS-Überschreibungen
+   auf den Dawn-Klassen. Mobile First.
+   ========================================================= */
+
+/* ── CSS Custom Properties (Footer-Scope) ── */
+.footer {
+  --np-footer-bg: #0D0D0D;
+  --np-footer-border: rgba(255, 255, 255, 0.1);
+  --np-footer-text: rgba(255, 255, 255, 0.7);
+  --np-footer-text-hover: #FFFFFF;
+  --np-footer-heading: #FFFFFF;
+  --np-footer-sub: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Hintergrund & Basis-Farbe ── */
+.footer {
+  background-color: var(--np-footer-bg);
+  border-top: none;
+  color: var(--np-footer-text);
+  margin-top: 0 !important;
+}
+
+/* Dawn nutzt color-scheme-Klassen – überschreiben für alle Schemes */
+.footer.color-scheme-1,
+.footer.color-scheme-2,
+.footer.color-scheme-3,
+.footer.color-scheme-4,
+.footer.color-scheme-5,
+.footer.color-inverse,
+.footer.gradient {
+  background-color: var(--np-footer-bg);
+  color: var(--np-footer-text);
+}
+
+/* ── Spalten-Überschriften ── */
+.footer .footer-block__heading {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--np-footer-heading);
+  margin-bottom: 1.8rem;
+}
+
+/* ── Fließtext (brand info, text-Blöcke) ── */
+.footer .footer-block__details-content,
+.footer .footer-block__details-content p,
+.footer .rte,
+.footer .rte p {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--np-footer-text);
+  line-height: 1.7;
+}
+
+/* ── Navigations-Links ── */
+.footer .footer-block__details-content .list-menu__item--link,
+.footer .footer-block__details-content .link {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--np-footer-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: block;
+  padding: 0.4rem 0;
+}
+
+@media screen and (min-width: 750px) {
+  .footer .footer-block__details-content .list-menu__item--link,
+  .footer .footer-block__details-content .link {
+    display: block;
+    padding: 0.3rem 0;
+  }
+}
+
+.footer .footer-block__details-content .list-menu__item--link:hover,
+.footer .footer-block__details-content .link:hover,
+.footer .footer-block__details-content .list-menu__item--active {
+  color: var(--np-footer-text-hover);
+  text-decoration: none;
+}
+
+/* ── Social Icons ── */
+.footer .list-social__link {
+  color: var(--np-footer-text);
+  transition: color 0.2s ease;
+  padding: 0.8rem;
+}
+
+.footer .list-social__link:hover {
+  color: var(--np-footer-text-hover);
+}
+
+.footer .list-social .icon {
+  fill: currentColor;
+  color: currentColor;
+}
+
+/* ── Sub-Footer (Trennlinie + Copyright + Policies) ── */
+.footer .footer__content-bottom {
+  border-top: 1px solid var(--np-footer-border);
+  padding-top: 2.4rem;
+  padding-bottom: 2.4rem;
+}
+
+/* Beide Wrapper in eine Flex-Zeile auf Desktop ── */
+.footer .footer__content-bottom-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+/* Copyright-Zeile ── */
+.footer .footer__copyright {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.2rem;
+  margin-top: 0;
+  text-align: left;
+}
+
+.footer .copyright__content,
+.footer .copyright__content a {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--np-footer-sub);
+  text-decoration: none;
+}
+
+.footer .copyright__content a:hover {
+  color: var(--np-footer-text-hover);
+}
+
+/* "Powered by Shopify" ausblenden ── */
+.footer .copyright__content .shopify-policy__title {
+  color: var(--np-footer-sub);
+}
+
+/* Datenschutz / Impressum (policies) ── */
+.footer .policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.4rem;
+  align-items: center;
+}
+
+.footer .policies li {
+  display: flex;
+  align-items: center;
+}
+
+.footer .policies li::before {
+  color: var(--np-footer-sub);
+}
+
+.footer .policies li a,
+.footer .policies small a {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--np-footer-sub);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer .policies li a:hover,
+.footer .policies small a:hover {
+  color: var(--np-footer-text-hover);
+}
+
+/* ── Zahlungsarten-Icons ── */
+.footer .footer__payment {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.footer .list-payment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer .list-payment__item {
+  display: flex;
+  align-items: center;
+}
+
+/* SVG-Icons auf dunklem Hintergrund lesbar machen ── */
+.footer .list-payment .icon--full-color {
+  border-radius: 3px;
+  overflow: hidden;
+  height: 2.2rem;
+  width: auto;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.footer .list-payment .icon--full-color:hover {
+  opacity: 1;
+}
+
+/* ── Mobil: Copyright und Policies gestapelt zentriert ── */
+@media screen and (max-width: 749px) {
+  .footer .footer__content-bottom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .footer .footer__content-bottom-wrapper {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer .footer__copyright {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer .footer__payment {
+    justify-content: center;
+  }
+
+  .footer .list-payment {
+    justify-content: center;
+  }
+}
+
+/* ── Lokalisierungsbereich (Land/Sprache) – unauffällig ── */
+.footer .footer__localization h2 {
+  color: var(--np-footer-sub);
+}
+
+.footer .localization-form select,
+.footer .localization-form button {
+  color: var(--np-footer-text);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: var(--np-footer-border);
+}
+
+/* ── Newsletter-Formular im Footer (falls aktiviert) ── */
+.footer .footer-block__newsletter .footer-block__heading {
+  color: var(--np-footer-heading);
+}
+
+.footer .footer__newsletter .field__input {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+}
+
+.footer .footer__newsletter .field__input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer .footer__newsletter .field__label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer .footer__newsletter .newsletter-form__button {
+  background-color: var(--color-brand-red, #D2090E);
+  border-color: var(--color-brand-red, #D2090E);
+  color: #FFFFFF;
+}
+
+.footer .footer__newsletter .newsletter-form__button:hover {
+  background-color: var(--color-brand-red-dark, #A5070B);
+}
