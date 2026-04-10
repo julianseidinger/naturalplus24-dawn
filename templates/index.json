@@ -12,6 +12,8 @@
     "hero-banner": {
       "type": "hero-banner",
       "settings": {
+        "video": "shopify://files/videos/workout video.mp4",
+        "video_disable_mobile": true,
         "image": "shopify://shop_images/two-dumbells-against-a-dark-red-background.jpg",
         "overlay_opacity": 55,
         "min_height": "fullscreen",
