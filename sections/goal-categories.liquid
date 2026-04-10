@@ -18,7 +18,7 @@
           {%- endcomment -%}
           <a
             href="{{ block.settings.link | default: '#' }}"
-            class="np-goal-card"
+            class="np-goal-card{% if block.settings.image_contain %} np-goal-card--contain{% endif %}"
             aria-label="{{ block.settings.heading | escape }}"
           >
 
@@ -110,6 +110,13 @@
           "type": "url",
           "id": "link",
           "label": "Link (z.B. Collection)"
+        },
+        {
+          "type": "checkbox",
+          "id": "image_contain",
+          "label": "Bild als Grafik anzeigen (nicht zuschneiden)",
+          "default": false,
+          "info": "Aktivieren wenn das Bild ein Icon oder eine Grafik ist statt ein Foto."
         }
       ]
     }

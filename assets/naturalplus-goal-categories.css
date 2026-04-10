@@ -91,6 +91,19 @@
   transform: scale(1.1);
 }
 
+/* Grafik-Modus: Bild vollständig anzeigen ohne Zuschneiden */
+.np-goal-card--contain .np-goal-card__img {
+  object-fit: contain;
+  object-position: center center;
+  transform: scale(1);
+  padding: 1.6rem;
+}
+
+.np-goal-card--contain:hover .np-goal-card__img,
+.np-goal-card--contain:focus-visible .np-goal-card__img {
+  transform: scale(1.05);
+}
+
 /* Platzhalter-SVG wenn kein Bild gesetzt */
 .np-goal-card__placeholder {
   position: absolute;
