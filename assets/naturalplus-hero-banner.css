@@ -48,6 +48,11 @@
   display: none;
 }
 
+/* Bild nur auf Mobil (Video-Fallback) */
+.np-hero__img--mobile-only {
+  display: block;
+}
+
 @media screen and (min-width: 750px) {
   .np-hero__img--mobile {
     display: none;
@@ -55,6 +60,30 @@
 
   .np-hero__img--desktop-only {
     display: block;
+  }
+
+  .np-hero__img--mobile-only {
+    display: none;
+  }
+}
+
+
+/* ── Hintergrundvideo ── */
+.np-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Video auf Mobilgeräten ausblenden wenn Checkbox aktiv
+   (das Fallback-Bild .np-hero__img--mobile-only wird stattdessen angezeigt) */
+@media screen and (max-width: 749px) {
+  .np-hero--video-disable-mobile .np-hero__video {
+    display: none;
   }
 }
 

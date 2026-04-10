@@ -32,52 +32,98 @@
 
 <section
   id="HeroBanner-{{ section.id }}"
-  class="np-hero"
+  class="np-hero{% if section.settings.video != blank and section.settings.video_disable_mobile %} np-hero--video-disable-mobile{% endif %}"
   aria-label="{{ section.settings.heading | escape }}"
 >
 
-  {%- comment -%} ── Hintergrundbild(er) ── {%- endcomment -%}
-  {%- if has_mobile_image -%}
-    {%- assign mobile_height = section.settings.image_mobile.width | divided_by: section.settings.image_mobile.aspect_ratio -%}
-    {{
-      section.settings.image_mobile
-      | image_url: width: 1100
-      | image_tag:
-        class: 'np-hero__img np-hero__img--mobile',
-        sizes: '100vw',
-        widths: '375, 550, 750, 1100',
-        width: section.settings.image_mobile.width,
-        height: mobile_height,
-        loading: 'eager',
-        fetchpriority: fetch_priority,
-        alt: ''
-    }}
-  {%- endif -%}
+  {%- comment -%} ── Hintergrundvideo (hat Vorrang vor Bild) ── {%- endcomment -%}
+  {%- if section.settings.video != blank -%}
 
-  {%- if section.settings.image != blank -%}
-    {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
-    {%- if has_mobile_image -%}
-      {%- assign desktop_img_class = 'np-hero__img np-hero__img--desktop-only' -%}
+    {%- comment -%} Poster-Bild (Standbild bis Video geladen) ── {%- endcomment -%}
+    {%- if section.settings.image != blank -%}
+      {%- assign poster_url = section.settings.image | image_url: width: 1500 -%}
     {%- else -%}
-      {%- assign desktop_img_class = 'np-hero__img' -%}
+      {%- assign poster_url = '' -%}
     {%- endif -%}
-    {{
-      section.settings.image
-      | image_url: width: 3840
-      | image_tag:
-        class: desktop_img_class,
-        sizes: '100vw',
-        widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
-        width: section.settings.image.width,
-        height: image_height,
-        loading: 'eager',
-        fetchpriority: fetch_priority,
-        alt: ''
-    }}
+
+    <video
+      class="np-hero__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+      {% if poster_url != '' %}poster="{{ poster_url }}"{% endif %}
+    >
+      {%- for source in section.settings.video.sources -%}
+        <source src="{{ source.url }}" type="{{ source.mime_type }}">
+      {%- endfor -%}
+    </video>
+
+    {%- comment -%} Bild als Fallback auf Mobilgeräten wenn gewünscht {%- endcomment -%}
+    {%- if section.settings.video_disable_mobile and section.settings.image != blank -%}
+      {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+      {{
+        section.settings.image
+        | image_url: width: 1100
+        | image_tag:
+          class: 'np-hero__img np-hero__img--mobile-only',
+          sizes: '100vw',
+          widths: '375, 550, 750, 1100',
+          width: section.settings.image.width,
+          height: image_height,
+          loading: 'eager',
+          fetchpriority: fetch_priority,
+          alt: ''
+      }}
+    {%- endif -%}
+
   {%- else -%}
-    <div class="np-hero__placeholder" aria-hidden="true">
-      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-    </div>
+
+    {%- comment -%} ── Hintergrundbild(er) – kein Video gesetzt ── {%- endcomment -%}
+    {%- if has_mobile_image -%}
+      {%- assign mobile_height = section.settings.image_mobile.width | divided_by: section.settings.image_mobile.aspect_ratio -%}
+      {{
+        section.settings.image_mobile
+        | image_url: width: 1100
+        | image_tag:
+          class: 'np-hero__img np-hero__img--mobile',
+          sizes: '100vw',
+          widths: '375, 550, 750, 1100',
+          width: section.settings.image_mobile.width,
+          height: mobile_height,
+          loading: 'eager',
+          fetchpriority: fetch_priority,
+          alt: ''
+      }}
+    {%- endif -%}
+
+    {%- if section.settings.image != blank -%}
+      {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+      {%- if has_mobile_image -%}
+        {%- assign desktop_img_class = 'np-hero__img np-hero__img--desktop-only' -%}
+      {%- else -%}
+        {%- assign desktop_img_class = 'np-hero__img' -%}
+      {%- endif -%}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          class: desktop_img_class,
+          sizes: '100vw',
+          widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+          width: section.settings.image.width,
+          height: image_height,
+          loading: 'eager',
+          fetchpriority: fetch_priority,
+          alt: ''
+      }}
+    {%- else -%}
+      <div class="np-hero__placeholder" aria-hidden="true">
+        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+
   {%- endif -%}
 
   {%- comment -%} ── Dunkler Overlay-Gradient ── {%- endcomment -%}
@@ -145,12 +191,30 @@
   "settings": [
     {
       "type": "header",
-      "content": "Bild"
+      "content": "Video (hat Vorrang vor Bild)"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Hintergrundvideo",
+      "info": "MP4 empfohlen. Wird automatisch stumm und als Loop abgespielt. Bild unten als Poster/Fallback nutzen."
+    },
+    {
+      "type": "checkbox",
+      "id": "video_disable_mobile",
+      "label": "Video auf Mobilgeräten deaktivieren (Bild stattdessen)",
+      "default": true,
+      "info": "Spart mobile Datenvolumen. Das Hintergrundbild wird dann auf Mobilgeräten angezeigt."
+    },
+    {
+      "type": "header",
+      "content": "Bild (Fallback / Poster)"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Hintergrundbild (Desktop)"
+      "label": "Hintergrundbild (Desktop)",
+      "info": "Wird als Standbild bis das Video lädt, und auf Mobilgeräten wenn Video deaktiviert."
     },
     {
       "type": "image_picker",
