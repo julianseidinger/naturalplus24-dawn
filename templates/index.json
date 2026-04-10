@@ -157,11 +157,12 @@
         "prod-2": {
           "type": "product",
           "settings": {
-            "title": "Creatin Monohydrat",
-            "link": "shopify://collections/all",
-            "price": "14,90 €",
+            "image": "shopify://shop_images/natural-plus-creatine-500g.png",
+            "title": "CREATINE Pulver",
+            "link": "shopify://products/creatine-pulver",
+            "price": "29,90 €",
             "price_compare": "",
-            "show_rating": true,
+            "show_rating": false,
             "rating": 4.5,
             "rating_count": 84,
             "badge": "Bestseller",
@@ -172,29 +173,31 @@
         "prod-3": {
           "type": "product",
           "settings": {
-            "title": "Pre-Workout Booster",
-            "link": "shopify://collections/all",
-            "price": "34,90 €",
-            "price_compare": "44,90 €",
-            "show_rating": true,
+            "image": "shopify://shop_images/Balkan-Pharmaceuticals-Pregnolone.png",
+            "title": "Pregnolone 2.0",
+            "link": "shopify://products/balkan-p-pregnolone-2-0-120kps",
+            "price": "39,90 €",
+            "price_compare": "",
+            "show_rating": false,
             "rating": 4.5,
             "rating_count": 56,
-            "badge": "Sale",
-            "category": "booster",
+            "badge": "Bestseller",
+            "category": "vitamine",
             "atc_label": "IN DEN WARENKORB"
           }
         },
         "prod-4": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/natural-plus-D3-K3.png",
             "title": "Vitamin D3 + K2",
-            "link": "shopify://collections/all",
+            "link": "shopify://products/d3-k2-60kps",
             "price": "12,90 €",
             "price_compare": "",
-            "show_rating": true,
+            "show_rating": false,
             "rating": 5,
             "rating_count": 22,
-            "badge": "Neu",
+            "badge": "Bestseller",
             "category": "vitamine",
             "atc_label": "IN DEN WARENKORB"
           }
