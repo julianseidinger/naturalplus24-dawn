@@ -1,0 +1,171 @@
+{{ 'naturalplus-bestseller-grid.css' | asset_url | stylesheet_tag }}
+{{ 'naturalplus-customer-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign block_count = section.blocks.size
+-%}
+
+<section class="np-reviews" aria-labelledby="ReviewsHeading-{{ section.id }}">
+  <div class="page-width">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="np-reviews__heading" id="ReviewsHeading-{{ section.id }}">
+        {{- section.settings.heading | escape -}}
+      </h2>
+    {%- endif -%}
+
+    <ul
+      class="np-reviews__grid{% if block_count == 4 %} np-reviews__grid--four{% endif %}"
+      role="list"
+    >
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign rating     = block.settings.rating | default: 5
+          assign full_stars = rating | floor
+          assign has_half   = false
+          if rating != full_stars
+            assign has_half = true
+          endif
+          assign empty_stars = 5 | minus: full_stars
+          if has_half
+            assign empty_stars = empty_stars | minus: 1
+          endif
+        -%}
+        <li {{ block.shopify_attributes }}>
+          <article class="np-review-card">
+
+            {%- comment -%} Sterne ── {%- endcomment -%}
+            <div class="np-review-card__stars" aria-label="{{ rating }} von 5 Sternen">
+              {%- for i in (1..full_stars) -%}
+                <svg class="np-star np-star--full" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204z"/>
+                </svg>
+              {%- endfor -%}
+              {%- if has_half -%}
+                <svg class="np-star np-star--half" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91V0z"/>
+                  <path d="M7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204L7 0v10.91z"/>
+                </svg>
+              {%- endif -%}
+              {%- if empty_stars > 0 -%}
+                {%- for i in (1..empty_stars) -%}
+                  <svg class="np-star np-star--empty" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M7 0l1.796 5.527H14l-4.618 3.354 1.764 5.428L7 10.91l-4.146 3.399 1.764-5.428L0 5.527h5.204z"/>
+                  </svg>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Zitat ── {%- endcomment -%}
+            {%- if block.settings.quote != blank -%}
+              <blockquote class="np-review-card__quote">
+                {{- block.settings.quote | escape -}}
+              </blockquote>
+            {%- endif -%}
+
+            {%- comment -%} Name + Produkt ── {%- endcomment -%}
+            <div class="np-review-card__meta">
+              {%- if block.settings.name != blank -%}
+                <p class="np-review-card__name">{{ block.settings.name | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.product != blank -%}
+                <p class="np-review-card__product">{{ block.settings.product | escape }}</p>
+              {%- endif -%}
+            </div>
+
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Kundenbewertungen",
+  "tag": "section",
+  "class": "np-reviews-section",
+  "max_blocks": 4,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "\u00dcberschrift",
+      "default": "WAS UNSERE KUNDEN SAGEN"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Bewertung",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "label": "Sterne",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Zitat",
+          "default": "Absolut \u00fcberzeugt! Die Qualit\u00e4t ist sp\u00fcrbar besser als bei anderen Marken."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name des Kunden",
+          "default": "Max M."
+        },
+        {
+          "type": "text",
+          "id": "product",
+          "label": "Produkt",
+          "default": "Whey Protein Classic"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kundenbewertungen",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Absolut \u00fcberzeugt! Die Qualit\u00e4t ist sp\u00fcrbar besser als bei anderen Marken \u2013 und das zu einem fairen Preis.",
+            "name": "Max M.",
+            "product": "Whey Protein Classic"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Schnelle Lieferung, top Verpackung und vor allem: das Creatin wirkt wirklich. Klare Empfehlung!",
+            "name": "Laura K.",
+            "product": "Creatin Monohydrat"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 4.5,
+            "quote": "Endlich ein Booster ohne \u00fcbertriebenes Kribbeln. Gute Energie, saubere Inhaltsstoffe \u2013 genau was ich gesucht habe.",
+            "name": "Stefan R.",
+            "product": "Pre-Workout Booster"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

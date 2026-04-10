@@ -139,6 +139,39 @@
       },
       "block_order": ["new-1", "new-2", "new-3", "new-4", "new-5"]
     },
+    "customer-reviews": {
+      "type": "customer-reviews",
+      "blocks": {
+        "rev-1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Absolut \u00fcberzeugt! Die Qualit\u00e4t ist sp\u00fcrbar besser als bei anderen Marken \u2013 und das zu einem fairen Preis.",
+            "name": "Max M.",
+            "product": "Whey Protein Classic"
+          }
+        },
+        "rev-2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Schnelle Lieferung, top Verpackung und vor allem: das Creatin wirkt wirklich. Klare Empfehlung!",
+            "name": "Laura K.",
+            "product": "Creatin Monohydrat"
+          }
+        },
+        "rev-3": {
+          "type": "review",
+          "settings": {
+            "rating": 4.5,
+            "quote": "Endlich ein Booster ohne \u00fcbertriebenes Kribbeln. Gute Energie, saubere Inhaltsstoffe \u2013 genau was ich gesucht habe.",
+            "name": "Stefan R.",
+            "product": "Pre-Workout Booster"
+          }
+        }
+      },
+      "block_order": ["rev-1", "rev-2", "rev-3"]
+    },
     "brand-story": {
       "type": "brand-story",
       "blocks": {
@@ -261,6 +294,7 @@
     "bestseller-grid",
     "promo-banner",
     "new-products-carousel",
-    "brand-story"
+    "brand-story",
+    "customer-reviews"
   ]
 }
