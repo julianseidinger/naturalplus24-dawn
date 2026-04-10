@@ -96,6 +96,15 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* NaturalPlus: Header-Hintergrund synchron setzen um FOUC zu vermeiden.
+     .gradient aus Dawn würde sonst async-CSS (naturalplus-header.css)
+     durch background-attachment: fixed und background-color: white
+     kurzzeitig überschreiben. */
+  .section-header .header-wrapper {
+    background: #0D0D0D;
+    background-color: #0D0D0D;
+  }
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
